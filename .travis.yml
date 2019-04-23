@@ -1,0 +1,20 @@
+language: java
+jdk: oraclejdk11
+
+cache:
+  directories:
+  - $HOME/.m2
+
+branches:
+  only:
+  - master
+
+services: postgresql
+
+addons:
+  postgresql: "9.6"
+
+before_install:
+  - psql -c "CREATE DATABASE sjb;" -U postgres
+  - psql -c "CREATE USER sjb WITH PASSWORD 'sjb';" -U postgres
+  - psql -c "GRANT ALL PRIVILEGES ON DATABASE \"sjb\" to sjb;" -U postgres
