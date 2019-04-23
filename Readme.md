@@ -96,7 +96,26 @@ $ mvn clean install cargo:run
 After that you can open ```http://localhost:9090/``` in your browser and work with forum.
 Default administrator account have login ```Admin``` and password ```password```.
 
-## Screenshots 
+## Screenshots
+<img src="https://raw.githubusercontent.com/beljaeff/simple-java-boards/master/screenshots/desktop/main.png" />
+<br /><br />
+<img src="https://raw.githubusercontent.com/beljaeff/simple-java-boards/master/screenshots/desktop/board.png" />
+<br /><br />
+<img src="https://raw.githubusercontent.com/beljaeff/simple-java-boards/master/screenshots/desktop/topic.png" />
+<br /><br />
+<img src="https://raw.githubusercontent.com/beljaeff/simple-java-boards/master/screenshots/desktop/sign-in.png" />
+<br /><br />
+<img src="https://raw.githubusercontent.com/beljaeff/simple-java-boards/master/screenshots/desktop/sign-up.png" />
+<br /><br />
+<img src="https://raw.githubusercontent.com/beljaeff/simple-java-boards/master/screenshots/mobile/main.png" width="300px" />
+
+<img src="https://raw.githubusercontent.com/beljaeff/simple-java-boards/master/screenshots/mobile/board.png" width="300px" />
+
+<img src="https://raw.githubusercontent.com/beljaeff/simple-java-boards/master/screenshots/mobile/topic.png" width="300px" />
+
+<img src="https://raw.githubusercontent.com/beljaeff/simple-java-boards/master/screenshots/mobile/sign-in.png" width="300px" />
+
+<img src="https://raw.githubusercontent.com/beljaeff/simple-java-boards/master/screenshots/mobile/sign-up.png" width="300px" />
 
 ## TODO
 
