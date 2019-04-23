@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="initial" author="Yuri D. Beljaeff">
+        <tagDatabase tag="initial"/>
+    </changeSet>
+    <include file="src/main/resources/liquibase/changelogs/initial/create-tables.sql"/>
+    <include file="src/main/resources/liquibase/changelogs/initial/populate-data.sql"/>
+    <include file="src/main/resources/liquibase/changelogs/initial/create-constraints.sql"/>
+    <include file="src/main/resources/liquibase/changelogs/initial/functions/is_attachment_active.sql"/>
+    <include file="src/main/resources/liquibase/changelogs/initial/functions/is_category_active.sql"/>
+    <include file="src/main/resources/liquibase/changelogs/initial/functions/is_board_active.sql"/>
+    <include file="src/main/resources/liquibase/changelogs/initial/functions/is_entity_active.sql"/>
+    <include file="src/main/resources/liquibase/changelogs/initial/functions/is_group_active.sql"/>
+    <include file="src/main/resources/liquibase/changelogs/initial/functions/is_pm_active.sql"/>
+    <include file="src/main/resources/liquibase/changelogs/initial/functions/is_post_active.sql"/>
+    <include file="src/main/resources/liquibase/changelogs/initial/functions/is_topic_active.sql"/>
+    <include file="src/main/resources/liquibase/changelogs/initial/functions/is_user_active.sql"/>
+    <include file="src/main/resources/liquibase/changelogs/initial/functions/get_entity_ancestors.sql"/>
+    <include file="src/main/resources/liquibase/changelogs/initial/triggers/recalc_counts.sql"/>
+    <include file="src/main/resources/liquibase/changelogs/initial/triggers/update_topic_on_delete_post.sql"/>
+</databaseChangeLog>

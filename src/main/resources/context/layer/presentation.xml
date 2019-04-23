@@ -1,0 +1,111 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <!-- Enable AspectJ style of Spring AOP -->
+    <aop:aspectj-autoproxy />
+
+    <bean id="expressionHandler" class="com.github.beljaeff.sjb.security.SjbMethodSecurityExpressionHandler" />
+    <security:global-method-security secured-annotations="enabled" pre-post-annotations="enabled">
+        <security:expression-handler ref="expressionHandler" />
+    </security:global-method-security>
+
+    <!-- serve static resources (*.html, ...) from src/main/webapp/ -->
+    <mvc:default-servlet-handler />
+
+    <mvc:resources mapping="/resources/**" location="/resources/" />
+    <mvc:resources mapping="${uri.upload.prefix}**" location="file:${files.upload.storage.path}" />
+    <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/" />
+
+    <util:map id="freemarkerVariables">
+        <entry key="topicsPageSize" value="${topics.page.size}" />
+        <entry key="postsPageSize" value="${posts.page.size}" />
+        <entry key="usersPageSize" value="${users.page.size}" />
+        <entry key="maxAttachmentsPerPost" value="${post.max.attachments.count.per.post}" />
+        <entry key="passwordMinStrength" value="${password.min.strength}" />
+        <entry key="maxSecretAnswerTries" value="${max.secret.answer.tries}" />
+    </util:map>
+
+    <!-- freemarker config -->
+    <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        <property name="templateLoaderPath" value="/WEB-INF/templates/" />
+        <property name="defaultEncoding" value="UTF-8" />
+        <property name="freemarkerVariables" ref="freemarkerVariables" />
+        <property name="freemarkerSettings">
+            <props>
+                <prop key="date_format">yyyy-MM-dd</prop>
+                <prop key="time_format">HH:mm:ss</prop>
+                <prop key="datetime_format">xs</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+        <property name="cache" value="false" />
+        <property name="prefix" value="" />
+        <property name="suffix" value=".ftl" />
+        <property name="contentType" value="text/html;charset=UTF-8" />
+    </bean>
+
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+        <property name="defaultLocale" value="en" />
+    </bean>
+
+    <bean name="globalValidator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <property name="validationMessageSource" ref="messageSource" />
+    </bean>
+
+    <bean name="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver" />
+
+    <bean class="org.springframework.format.support.FormattingConversionServiceFactoryBean" id="conversionService">
+        <property name="converters">
+            <set>
+                <bean class="com.github.beljaeff.sjb.util.converter.StringToGenderConverter" />
+                <bean class="com.github.beljaeff.sjb.util.converter.GenderToStringConverter" />
+                <bean class="com.github.beljaeff.sjb.util.converter.ProfileSectionToStringConverter" />
+                <bean class="com.github.beljaeff.sjb.util.converter.StringToProfileSectionConverter" />
+                <bean class="com.github.beljaeff.sjb.util.converter.LocalDateToStringConverter" />
+                <bean class="com.github.beljaeff.sjb.util.converter.StringToLocalDateConverter" />
+            </set>
+        </property>
+    </bean>
+
+    <mvc:annotation-driven conversion-service="conversionService" validator="globalValidator">
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>text/plain;charset=UTF-8</value>
+                        <value>text/html;charset=UTF-8</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <context:component-scan base-package="com.github.beljaeff.sjb.controller" />
+
+    <mvc:interceptors>
+        <!-- Inject authorized user data to every request -->
+        <bean class="com.github.beljaeff.sjb.util.interceptor.UserToModelInjector" />
+
+        <!-- TODO: i18n
+        <mvc:interceptor>
+            <mvc:mapping path="/*"/>
+            <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+                <property name="paramName" value="lang" />
+            </bean>
+        </mvc:interceptor>
+        -->
+    </mvc:interceptors>
+</beans>

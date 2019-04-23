@@ -1,0 +1,50 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="
+                http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	            http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <http pattern="/resources/**" security="none" />
+    <http pattern="/webjars/**" security="none" />
+    <http pattern="${uri.upload.prefix}**" security="none" />
+
+    <beans:bean class="org.springframework.security.crypto.factory.PasswordEncoderFactories" id="passwordEncoder"
+                factory-method="createDelegatingPasswordEncoder" />
+
+    <beans:bean id="anonymousAuthFilter" class="com.github.beljaeff.sjb.security.AnonymousAuthFilter">
+        <beans:constructor-arg index="0" value="SjbAnonymousAuthFilter" />
+        <beans:constructor-arg index="1" ref="userService" />
+    </beans:bean>
+
+    <beans:bean id="authentiacationSuccessHandler" class="com.github.beljaeff.sjb.security.SjbAuthenticationSuccessHandler" />
+
+    <http>
+        <anonymous enabled="false" />
+        <custom-filter ref="anonymousAuthFilter" position="ANONYMOUS_FILTER" />
+        <intercept-url pattern="/sign-in" access="isAnonymous()" />
+        <intercept-url pattern="/sign-up" access="isAnonymous()" />
+        <intercept-url pattern="/reset-password" access="isAnonymous()" />
+        <intercept-url pattern="/sign-out" access="isAuthenticated()" />
+
+        <form-login
+                login-processing-url="/sign-in"
+                username-parameter="login"
+                authentication-success-handler-ref="authentiacationSuccessHandler"
+                login-page="/sign-in"
+                authentication-failure-url="/sign-in?error"
+        />
+        <logout
+                logout-url="/sign-out"
+                logout-success-url="/sign-in" />
+
+        <!--TODO: enable! -->
+        <csrf disabled="true" />
+    </http>
+
+    <authentication-manager>
+        <authentication-provider user-service-ref="userService">
+            <password-encoder ref="passwordEncoder" />
+        </authentication-provider>
+    </authentication-manager>
+</beans:beans>
