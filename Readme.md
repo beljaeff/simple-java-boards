@@ -1,3 +1,7 @@
+[![Known Vulnerabilities](https://snyk.io/test/github/beljaeff/simple-java-boards/badge.svg)](https://snyk.io/test/github/beljaeff/simple-java-boards) 
+[![Build Status](https://travis-ci.org/beljaeff/simple-java-boards.svg?branch=master)](https://travis-ci.org/beljaeff/simple-java-boards)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/9b89083d38d8457a8efeddc8d455c745)](https://www.codacy.com/app/beljaeff/simple-java-boards?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=beljaeff/simple-java-boards&amp;utm_campaign=Badge_Grade)
+
 # Simple Java Boards
 
 Simple forum engine written in Java.
