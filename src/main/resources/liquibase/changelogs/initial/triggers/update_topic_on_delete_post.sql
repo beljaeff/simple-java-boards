@@ -1,5 +1,5 @@
 DROP TRIGGER IF EXISTS t_update_topic_on_delete_post ON posts;
-DROP FUNCTION IF EXISTS update_topic_on_delete_post;
+DROP FUNCTION IF EXISTS update_topic_on_delete_post();
 
 CREATE OR REPLACE FUNCTION update_topic_on_delete_post() RETURNS TRIGGER AS $$
 DECLARE

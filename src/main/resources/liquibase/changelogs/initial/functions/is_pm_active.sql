@@ -1,4 +1,4 @@
-DROP FUNCTION IF EXISTS is_pm_active;
+DROP FUNCTION IF EXISTS is_pm_active();
 CREATE OR REPLACE FUNCTION is_pm_active(id_pm INTEGER, check_parents BOOLEAN) RETURNS BOOLEAN AS $$
 DECLARE
   is_active BOOLEAN;

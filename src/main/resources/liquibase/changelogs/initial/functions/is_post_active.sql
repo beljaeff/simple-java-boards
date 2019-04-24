@@ -1,4 +1,4 @@
-DROP FUNCTION IF EXISTS is_post_active;
+DROP FUNCTION IF EXISTS is_post_active();
 CREATE OR REPLACE FUNCTION is_post_active(id_post INTEGER, check_parents BOOLEAN) RETURNS BOOLEAN AS $$
 DECLARE
   id_topic  INTEGER;

@@ -1,4 +1,4 @@
-DROP FUNCTION IF EXISTS is_attachment_active;
+DROP FUNCTION IF EXISTS is_attachment_active();
 CREATE OR REPLACE FUNCTION is_attachment_active(id_attachment INTEGER, check_parents BOOLEAN) RETURNS BOOLEAN AS $$
 DECLARE
   id_pm       INTEGER;

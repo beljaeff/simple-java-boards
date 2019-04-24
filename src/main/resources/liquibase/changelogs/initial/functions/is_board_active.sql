@@ -1,4 +1,4 @@
-DROP FUNCTION IF EXISTS is_board_active;
+DROP FUNCTION IF EXISTS is_board_active();
 CREATE OR REPLACE FUNCTION is_board_active(id_board INTEGER, check_parents BOOLEAN) RETURNS BOOLEAN AS $$
 DECLARE
   id_category INTEGER;

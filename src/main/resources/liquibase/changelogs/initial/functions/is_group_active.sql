@@ -1,4 +1,4 @@
-DROP FUNCTION IF EXISTS is_group_active;
+DROP FUNCTION IF EXISTS is_group_active();
 CREATE OR REPLACE FUNCTION is_group_active(id_group INTEGER) RETURNS BOOLEAN AS $$
 DECLARE
   is_active BOOLEAN;

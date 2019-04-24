@@ -1,4 +1,4 @@
-DROP FUNCTION IF EXISTS is_entity_active;
+DROP FUNCTION IF EXISTS is_entity_active();
 CREATE OR REPLACE FUNCTION is_entity_active(entity_id     INTEGER,
                                             entity_type   VARCHAR,
                                             check_parents BOOLEAN) RETURNS BOOLEAN AS $$

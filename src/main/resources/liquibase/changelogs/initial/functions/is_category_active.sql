@@ -1,4 +1,4 @@
-DROP FUNCTION IF EXISTS is_category_active;
+DROP FUNCTION IF EXISTS is_category_active();
 CREATE OR REPLACE FUNCTION is_category_active(id_category INTEGER) RETURNS BOOLEAN AS $$
 DECLARE
   is_active BOOLEAN;

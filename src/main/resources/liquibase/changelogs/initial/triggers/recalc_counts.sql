@@ -2,7 +2,7 @@ DROP TRIGGER IF EXISTS t_boards_recalc_counts ON boards;
 DROP TRIGGER IF EXISTS t_topics_recalc_counts ON topics;
 DROP TRIGGER IF EXISTS t_posts_recalc_counts ON posts;
 
-DROP FUNCTION IF EXISTS recalc_counts;
+DROP FUNCTION IF EXISTS recalc_counts();
 CREATE OR REPLACE FUNCTION recalc_counts() RETURNS TRIGGER AS $$
 DECLARE
   board_id INTEGER;

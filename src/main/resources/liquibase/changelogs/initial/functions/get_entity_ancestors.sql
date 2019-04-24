@@ -1,4 +1,4 @@
-DROP FUNCTION IF EXISTS get_entity_ancestors;
+DROP FUNCTION IF EXISTS get_entity_ancestors();
 CREATE OR REPLACE FUNCTION get_entity_ancestors(current_entity_id INTEGER, entity_type VARCHAR)
   RETURNS TABLE (
     id INTEGER,

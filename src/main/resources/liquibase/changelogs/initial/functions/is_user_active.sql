@@ -1,4 +1,4 @@
-DROP FUNCTION IF EXISTS is_user_active;
+DROP FUNCTION IF EXISTS is_user_active();
 CREATE OR REPLACE FUNCTION is_user_active(id_user INTEGER) RETURNS BOOLEAN AS $$
 DECLARE
   is_active BOOLEAN;
