@@ -7,7 +7,6 @@ import com.github.beljaeff.sjb.model.Topic;
 import com.github.beljaeff.sjb.model.User;
 import com.github.beljaeff.sjb.repository.condition.PostCondition;
 import com.github.beljaeff.sjb.repository.jpa.PostRepositoryJpa;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,7 +35,7 @@ class PostRepositoryTest extends AbstractPageableRepositoryTest<Post, PostCondit
     }
 
     @Override
-    String getEntityGraph() {
+    protected String getEntityGraph() {
         return EntityGraphs.POST_EXCEPT_TOPIC_AND_CHILD_POSTS;
     }
 
@@ -48,7 +47,7 @@ class PostRepositoryTest extends AbstractPageableRepositoryTest<Post, PostCondit
     }
 
     @Override
-    PageableRepository<Post, PostCondition> getRepository() {
+    protected PageableRepository<Post, PostCondition> getRepository() {
         return repository;
     }
 
@@ -58,14 +57,14 @@ class PostRepositoryTest extends AbstractPageableRepositoryTest<Post, PostCondit
     }
 
     @Test
-    void testGetAllByTopicAndSort() {
+    public void testGetAllByTopicAndSort() {
         PostCondition condition = new PostCondition();
         condition.setTopicId(10);
         verifyListsWithGraph(condition, EntityGraphs.POST_EXCEPT_TOPIC_AND_CHILD_POSTS,34, 35, 36, 31, 33, 32, 30);
     }
 
     @Test
-    void testGetAllIdNotExists() {
+    public void testGetAllIdNotExists() {
         PostCondition condition = new PostCondition();
         condition.setTopicId(1000);
         List<Post> list = getRepository().getList(condition, null);
@@ -81,12 +80,11 @@ class PostRepositoryTest extends AbstractPageableRepositoryTest<Post, PostCondit
     //TODO: needs refactoring
     @Transactional
     @Test
-    void testDeletePost() {
+    public void testDeletePost() {
         int id = 47;
         Post post = repository.get(id);
         Topic topic = post.getTopic();
         int topicId = topic.getId();
-        long oldPostsCount = topic.getPostsCount();
         List<Board> parentBoards = getParentBoardsForCounts(post.getTopic().getBoard(), 0, 1);
 
         assertTrue(repository.delete(id));
@@ -114,7 +112,7 @@ class PostRepositoryTest extends AbstractPageableRepositoryTest<Post, PostCondit
      */
     @Transactional
     @Test
-    void testEnsureFirstPostIdRecalculatedWhenDelete() {
+    public void testEnsureFirstPostIdRecalculatedWhenDelete() {
         repository.delete(62);
         entityManager.flush();
         entityManager.clear();
@@ -130,7 +128,7 @@ class PostRepositoryTest extends AbstractPageableRepositoryTest<Post, PostCondit
      */
     @Transactional
     @Test
-    void testEnsureLastPostIdRecalculatedWhenDelete() {
+    public void testEnsureLastPostIdRecalculatedWhenDelete() {
         repository.delete(75);
         entityManager.flush();
         entityManager.clear();
@@ -142,7 +140,7 @@ class PostRepositoryTest extends AbstractPageableRepositoryTest<Post, PostCondit
 
     @Transactional
     @Test
-    void testEnsureParentPostIdNulledWhenDelete() {
+    public void testEnsureParentPostIdNulledWhenDelete() {
         repository.delete(31);
         entityManager.flush();
         entityManager.clear();
@@ -156,11 +154,10 @@ class PostRepositoryTest extends AbstractPageableRepositoryTest<Post, PostCondit
      */
     @Transactional
     @Test
-    void testAdd() {
+    public void testAdd() {
         int topicId = 19;
         User author = entityManager.find(User.class, 55);
         Topic topic = entityManager.find(Topic.class, topicId);
-        long oldPostsCount = topic.getPostsCount();
 
         Post post = new Post();
         post.setTopic(topic);
@@ -189,11 +186,11 @@ class PostRepositoryTest extends AbstractPageableRepositoryTest<Post, PostCondit
     }
 
     @Test
-    void testUpdate() {
+    public void testUpdate() {
         int id = 49;
         Post post = repository.get(id);
         post.setBody("body");
         repository.update(post);
-        Assertions.assertEquals(post.getBody(), repository.get(id).getBody());
+        assertEquals(post.getBody(), repository.get(id).getBody());
     }
 }

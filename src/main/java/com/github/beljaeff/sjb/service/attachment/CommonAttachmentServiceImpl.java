@@ -15,7 +15,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
@@ -81,7 +80,7 @@ public class CommonAttachmentServiceImpl implements CommonAttachmentService {
             }
 
             List<Attachment> newAttachments = createPostAttachments(uploads);
-            if(!CollectionUtils.isEmpty(newAttachments)) {
+            if(!isEmpty(newAttachments)) {
                 attachments.addAll(newAttachments);
             }
         }

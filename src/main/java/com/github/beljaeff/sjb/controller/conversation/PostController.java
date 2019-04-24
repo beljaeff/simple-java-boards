@@ -71,7 +71,7 @@ public class PostController extends AbstractController {
         return saveForm(form, bindingResult, redirectAttributes, postService::edit);
     }
 
-    void setFormUrls(BaseForm baseForm) {
+    protected void setFormUrls(BaseForm baseForm) {
         PostForm form = (PostForm)baseForm;
 
         // Add post

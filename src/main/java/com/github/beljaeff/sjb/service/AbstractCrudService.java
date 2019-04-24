@@ -9,13 +9,12 @@ import com.github.beljaeff.sjb.exception.PersistenceException;
 import com.github.beljaeff.sjb.model.CommonEntity;
 import com.github.beljaeff.sjb.model.common.IdentifiedActiveEntity;
 import com.github.beljaeff.sjb.repository.BaseRepository;
+import com.github.beljaeff.sjb.repository.condition.Condition;
 import com.github.beljaeff.sjb.util.HttpUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
-import org.springframework.util.CollectionUtils;
-import com.github.beljaeff.sjb.repository.condition.Condition;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -133,7 +132,7 @@ abstract public class AbstractCrudService<T extends IdentifiedActiveEntity> impl
     }
 
     private void addFormLink(List<BreadcrumbDto> breadcrumbsDto, String title) {
-        if(!CollectionUtils.isEmpty(breadcrumbsDto)) {
+        if(!isEmpty(breadcrumbsDto)) {
             breadcrumbsDto.add(new BreadcrumbDto("", title));
         }
     }

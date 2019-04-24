@@ -108,7 +108,7 @@ public class TopicRepositoryJpa extends AbstractPageableRepository<Topic, TopicC
     }
 
     @Override
-    List<Topic> getResultList(TypedQuery<Tuple> query) {
+    protected List<Topic> getResultList(TypedQuery<Tuple> query) {
         List<Tuple> tuples = query.getResultList();
         List<Topic> ret = new ArrayList<>();
         for(Tuple tuple : tuples) {

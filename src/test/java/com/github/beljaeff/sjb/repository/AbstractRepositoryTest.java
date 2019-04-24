@@ -29,9 +29,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -76,12 +73,12 @@ public abstract class AbstractRepositoryTest<T extends IdentifiedActiveEntity, S
     @PersistenceContext
     protected EntityManager entityManager;
 
-    abstract Class<T> getEntityClass();
-    abstract T getEntity();
-    abstract S getCondition();
+    abstract protected Class<T> getEntityClass();
+    abstract protected T getEntity();
+    abstract protected S getCondition();
 
-    abstract ListableRepository<T, S> getRepository();
-    abstract ListableRepository<T, S> getMockRepository();
+    abstract protected ListableRepository<T, S> getRepository();
+    abstract protected ListableRepository<T, S> getMockRepository();
 
     /**
      * Verify parent boards have correct topicsCount and postsCount (trigger, DB side)
@@ -95,7 +92,8 @@ public abstract class AbstractRepositoryTest<T extends IdentifiedActiveEntity, S
     }
 
     @Transactional
-    protected List<Board> getParentBoardsForCounts(Board board, long tCount, long mCount) {
+    protected List<Board> getParentBoardsForCounts(Board boardGiven, long tCount, long mCount) {
+        Board board = boardGiven;
         List<Board> parentBoards = new ArrayList<>();
         for(; board != null; board=board.getParentBoard()) {
             Board b = new Board();
@@ -121,19 +119,19 @@ public abstract class AbstractRepositoryTest<T extends IdentifiedActiveEntity, S
     }
 
     @Test
-    void testGetAllConditionIsNull() {
+    public void testGetAllConditionIsNull() {
         Executable closure = () -> getRepository().getList(null, null);
         assertThrows(IllegalArgumentException.class, closure);
     }
 
     @Test
-    void testGetNotExistingElement() {
+    public void testGetNotExistingElement() {
         assertNull(getRepository().get(-100));
     }
 
     // Tests with id=1 here because we have category#id=1, board#id=1, topic#id=1, post#id=1, user#id=1
     @Test
-    void testGetElement() {
+    public void testGetElement() {
         int id = 1;
         T element = getRepository().get(id);
         T expected = entityManager.find(getEntityClass(), id);
@@ -141,7 +139,7 @@ public abstract class AbstractRepositoryTest<T extends IdentifiedActiveEntity, S
     }
 
     @Test
-    void testGetElementWithEntityGraph() {
+    public void testGetElementWithEntityGraph() {
         int id = 1;
         String entityGraphName = "entityGraphName";
         Map<String, Object> hints = new HashMap<>();
@@ -153,7 +151,7 @@ public abstract class AbstractRepositoryTest<T extends IdentifiedActiveEntity, S
     }
 
     @Test
-    void testGetElementCheckCallRealGet() {
+    public void testGetElementCheckCallRealGet() {
         int id = 1;
         BaseRepository<T, S> spyRepository = spy(mockRepository);
         spyRepository.get(id);
@@ -161,12 +159,12 @@ public abstract class AbstractRepositoryTest<T extends IdentifiedActiveEntity, S
     }
 
     @Test
-    void testDeleteNotExistingElement() {
+    public void testDeleteNotExistingElement() {
         assertFalse(getRepository().delete(-100));
     }
 
     @Test
-    void testDeleteElementByObject() {
+    public void testDeleteElementByObject() {
         int id = 1000;
         T entity = getEntity();
         entity.setId(id);
@@ -176,7 +174,7 @@ public abstract class AbstractRepositoryTest<T extends IdentifiedActiveEntity, S
     }
 
     @Test
-    void testDeleteSomethingGoesWrong() {
+    public void testDeleteSomethingGoesWrong() {
         int id = -100;
         when(mockEntityManager.find(getEntityClass(), id)).thenReturn(getEntity());
         assertFalse(mockRepository.delete(id));

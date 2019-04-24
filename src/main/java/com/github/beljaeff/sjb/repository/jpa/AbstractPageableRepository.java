@@ -20,7 +20,7 @@ public abstract class AbstractPageableRepository<T extends IdentifiedActiveEntit
     private static final int DEFAULT_PAGE_SIZE = 10;
 
     @Transactional(readOnly = true)
-    List<T> getResultList(TypedQuery<Tuple> query) {
+    protected List<T> getResultList(TypedQuery<Tuple> query) {
         List<Tuple> tuples = query.getResultList();
         List<T> ret = new ArrayList<>();
         for(Tuple tuple : tuples) {
@@ -33,8 +33,9 @@ public abstract class AbstractPageableRepository<T extends IdentifiedActiveEntit
      * If page not null - makes paginated query, otherwise retrieves all data
      */
     @Transactional(readOnly = true)
-    PagedEntityList<T> makePagination(Integer page, Integer pageSize,
+    protected PagedEntityList<T> makePagination(Integer page, Integer pSize,
                                       CriteriaBuilder builder, Predicate where, TypedQuery<Tuple> typedQuery) {
+        Integer pageSize = pSize;
         PagedEntityList<T> ret = new PagedEntityList<>();
         if(page != null) {
             ret.setCurrentPage(page);
@@ -67,7 +68,7 @@ public abstract class AbstractPageableRepository<T extends IdentifiedActiveEntit
     }
 
     @Transactional(readOnly = true)
-    long getTotal(CriteriaBuilder builder, Predicate where, Class<? extends IdentifiedActiveEntity> entityClass) {
+    protected long getTotal(CriteriaBuilder builder, Predicate where, Class<? extends IdentifiedActiveEntity> entityClass) {
         CriteriaQuery<Long> countQuery = builder.createQuery(Long.class);
         countQuery.select(builder.count(countQuery.from(entityClass)));
         if(where != null) {
@@ -77,7 +78,8 @@ public abstract class AbstractPageableRepository<T extends IdentifiedActiveEntit
     }
 
     @Transactional(readOnly = true)
-    public int getLastPage(CriteriaBuilder builder, Predicate where, Integer pageSize, Class<? extends IdentifiedActiveEntity> entityClass) {
+    public int getLastPage(CriteriaBuilder builder, Predicate where, Integer pSize, Class<? extends IdentifiedActiveEntity> entityClass) {
+        Integer pageSize = pSize;
         long total = getTotal(builder, where, entityClass);
         if(pageSize == null || pageSize < 1) pageSize = DEFAULT_PAGE_SIZE;
         return        total % pageSize == 0 && total > 0 ?

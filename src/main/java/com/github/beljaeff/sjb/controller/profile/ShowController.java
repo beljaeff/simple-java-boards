@@ -71,6 +71,8 @@ public class ShowController extends AbstractShowController {
                 return showProfileService.getGroups(userId);
             case STATISTICS:
                 return showProfileService.getStatistics(userId);
+            default:
+                break;
         }
         return null;
     }

@@ -32,7 +32,7 @@ public class SjbMethodSecurityExpressionRoot extends SecurityExpressionRoot impl
      *
      * @param target the target object on which the method in is being invoked.
      */
-    void setThis(Object target) {
+    public void setThis(Object target) {
         this.target = target;
     }
 

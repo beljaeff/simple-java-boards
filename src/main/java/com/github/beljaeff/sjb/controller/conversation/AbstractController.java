@@ -21,16 +21,16 @@ abstract public class AbstractController extends BaseController {
 
     private static final Logger log = LoggerFactory.getLogger(AbstractController.class);
 
-    void setFormAttributes(FormPageDto<? extends BaseDto, ? extends BaseForm> page, Model model) {
+    protected void setFormAttributes(FormPageDto<? extends BaseDto, ? extends BaseForm> page, Model model) {
         setFormUrls(page.getForm());
         model.addAttribute(ATTR_PAGE, page);
         model.addAttribute(ATTR_FORM, page.getForm());
         model.addAttribute(ATTR_ACTIVE_LIST, Utils.getActiveValues(recordService));
     }
 
-    abstract void setFormUrls(BaseForm form);
+    abstract protected void setFormUrls(BaseForm form);
 
-    <T extends BaseForm> String saveForm(T form, BindingResult bindingResult, RedirectAttributes redirectAttributes,
+    protected <T extends BaseForm> String saveForm(T form, BindingResult bindingResult, RedirectAttributes redirectAttributes,
                                          Consumer<T> saveMethodReference) {
         if(!bindingResult.hasErrors()) {
             try {
@@ -56,7 +56,7 @@ abstract public class AbstractController extends BaseController {
         return "redirect:" + form.getSaveUrl();
     }
 
-    String redirect(Model model) {
+    protected String redirect(Model model) {
         BaseForm form = (BaseForm) model.asMap().get(ATTR_FORM);
         if(form != null && form.getFinishUrl() != null) {
             return "redirect:" + form.getFinishUrl();
@@ -65,7 +65,7 @@ abstract public class AbstractController extends BaseController {
     }
 
     @SuppressWarnings("unchecked")
-    <T extends BaseForm> T getFormFromModel(final Model model, Supplier<T> constructorReference) {
+    protected <T extends BaseForm> T getFormFromModel(final Model model, Supplier<T> constructorReference) {
         return model.containsAttribute(ATTR_FORM) ? (T) model.asMap().get(ATTR_FORM) : constructorReference.get();
     }
 }

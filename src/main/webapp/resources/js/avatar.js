@@ -1,5 +1,5 @@
 jQuery(document).ready(function ($) {
-    $(document).on('change', '.attachment-selector', function () {
+    $(document).on("change", ".attachment-selector", function () {
         $(".avatar-check-feedback").hide();
         $(".avatar-check-feedback b").hide();
 
@@ -10,6 +10,6 @@ jQuery(document).ready(function ($) {
             return false;
         }
 
-        $('#attachment-info').html(file.name);
+        $("#attachment-info").html(file.name);
     });
 });

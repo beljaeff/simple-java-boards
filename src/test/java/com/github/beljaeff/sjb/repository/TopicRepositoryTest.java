@@ -6,7 +6,6 @@ import com.github.beljaeff.sjb.model.Topic;
 import com.github.beljaeff.sjb.model.User;
 import com.github.beljaeff.sjb.repository.condition.TopicCondition;
 import com.github.beljaeff.sjb.repository.jpa.TopicRepositoryJpa;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,7 +41,7 @@ class TopicRepositoryTest extends AbstractPageableRepositoryTest<Topic, TopicCon
     }
 
     @Override
-    PageableRepository<Topic, TopicCondition> getRepository() {
+    protected PageableRepository<Topic, TopicCondition> getRepository() {
         return repository;
     }
 
@@ -52,33 +51,33 @@ class TopicRepositoryTest extends AbstractPageableRepositoryTest<Topic, TopicCon
     }
 
     @Override
-    String getEntityGraph() {
+    protected String getEntityGraph() {
         return null;
     }
 
     @Test
-    void testGetAllByBoardAndDateSort() {
+    public void testGetAllByBoardAndDateSort() {
         TopicCondition condition = new TopicCondition();
         condition.setBoardId(2);
         verifyLists(condition, 12, 11, 10);
     }
 
     @Test
-    void testGetAllByBoardAndStickySort() {
+    public void testGetAllByBoardAndStickySort() {
         TopicCondition condition = new TopicCondition();
         condition.setBoardId(3);
         verifyLists(condition, 13, 15, 14);
     }
 
     @Test
-    void testGetAllByBoardAndTitleSort() {
+    public void testGetAllByBoardAndTitleSort() {
         TopicCondition condition = new TopicCondition();
         condition.setBoardId(7);
         verifyLists(condition, 19, 18);
     }
 
     @Test
-    void testGetAllIdNotExists() {
+    public void testGetAllIdNotExists() {
         TopicCondition condition = new TopicCondition();
         condition.setBoardId(1000);
         List<Topic> list = getRepository().getList(condition, null);
@@ -95,7 +94,7 @@ class TopicRepositoryTest extends AbstractPageableRepositoryTest<Topic, TopicCon
      */
     @Transactional
     @Test
-    void testDeleteTopic() {
+    public void testDeleteTopic() {
         int id = 17;
         Topic topic = repository.get(id);
         List<Board> parentBoards = getParentBoardsForCounts(topic.getBoard(), 1, topic.getPostsCount());
@@ -122,7 +121,7 @@ class TopicRepositoryTest extends AbstractPageableRepositoryTest<Topic, TopicCon
      */
     @Transactional
     @Test
-    void testEnsureLastTopicIdNulledWhenDelete() {
+    public void testEnsureLastTopicIdNulledWhenDelete() {
         repository.delete(10);
         entityManager.flush();
         entityManager.clear();
@@ -136,7 +135,7 @@ class TopicRepositoryTest extends AbstractPageableRepositoryTest<Topic, TopicCon
      */
     @Transactional
     @Test
-    void testAdd() {
+    public void testAdd() {
         int boardId = 4;
         User author = entityManager.find(User.class, 55);
         Board board = entityManager.find(Board.class, boardId);
@@ -167,11 +166,11 @@ class TopicRepositoryTest extends AbstractPageableRepositoryTest<Topic, TopicCon
     }
 
     @Test
-    void testUpdate() {
+    public void testUpdate() {
         int id = 19;
         Topic topic = repository.get(id);
         topic.setTitle("title");
         repository.update(topic);
-        Assertions.assertEquals(topic.getTitle(), repository.get(id).getTitle());
+        assertEquals(topic.getTitle(), repository.get(id).getTitle());
     }
 }

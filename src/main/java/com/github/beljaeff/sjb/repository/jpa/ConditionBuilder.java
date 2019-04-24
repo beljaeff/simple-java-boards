@@ -13,7 +13,7 @@ class ConditionBuilder {
     private CriteriaBuilder builder;
     private Predicate result;
 
-    ConditionBuilder(CriteriaBuilder builder) {
+    public ConditionBuilder(CriteriaBuilder builder) {
         this.builder = builder;
     }
 
@@ -21,7 +21,7 @@ class ConditionBuilder {
      * @param joinWithOr true => we use criteriaBuilder.or(), false => we use criteriaBuilder.and()
      * @param useNull true => we use criteriaBuilder.isNull(), false => we use criteriaBuilder.equal()
      */
-    <S> ConditionBuilder joinEqual(Path<S> path, S object, boolean joinWithOr, boolean useNull) {
+    public <S> ConditionBuilder joinEqual(Path<S> path, S object, boolean joinWithOr, boolean useNull) {
         if(path == null || object == null && !useNull) {
             return this;
         }
@@ -36,37 +36,37 @@ class ConditionBuilder {
         return this;
     }
 
-    <S> ConditionBuilder andEqual(Path<S> path, S object) {
+    public <S> ConditionBuilder andEqual(Path<S> path, S object) {
         return joinEqual(path, object, false, false);
     }
 
-    <S> ConditionBuilder orEqual(Path<S> path, S object) {
+    public <S> ConditionBuilder orEqual(Path<S> path, S object) {
         return joinEqual(path, object, true, false);
     }
 
-    <S> ConditionBuilder andEqualCheckingNull(Path<S> path, S object) {
+    public <S> ConditionBuilder andEqualCheckingNull(Path<S> path, S object) {
         return joinEqual(path, object, false, true);
     }
 
-    <S> ConditionBuilder orEqualCheckingNull(Path<S> path, S object) {
+    public <S> ConditionBuilder orEqualCheckingNull(Path<S> path, S object) {
         return joinEqual(path, object, true, true);
     }
 
-    <S> ConditionBuilder andNotEqual(Path<S> path, S object) {
+    public <S> ConditionBuilder andNotEqual(Path<S> path, S object) {
         if(path != null && object != null) {
             result = result == null ? builder.notEqual(path, object) : builder.and(result, builder.notEqual(path, object));
         }
         return this;
     }
 
-    <S, T> ConditionBuilder andIn(SetJoin<S, T> join, Collection<T> collection) {
+    public <S, T> ConditionBuilder andIn(SetJoin<S, T> join, Collection<T> collection) {
         if(join != null && !isEmpty(collection)) {
             result = result == null ? join.in(collection) : builder.and(join.in(collection));
         }
         return this;
     }
 
-    Predicate build() {
+    public Predicate build() {
         return result;
     }
 }

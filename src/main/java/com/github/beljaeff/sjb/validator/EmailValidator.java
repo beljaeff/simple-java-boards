@@ -10,9 +10,6 @@ public class EmailValidator implements ConstraintValidator<Email, String> {
     private static final String VALID_EMAIL = "^[_A-Za-z0-9-]+(.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(.[A-Za-z0-9]+)*(.[A-Za-z]{2,}){1,1}$";
 
     @Override
-    public void initialize(Email constraintAnnotation) {}
-
-    @Override
     public boolean isValid(String email, ConstraintValidatorContext context) {
         if(email == null) {
             return false;

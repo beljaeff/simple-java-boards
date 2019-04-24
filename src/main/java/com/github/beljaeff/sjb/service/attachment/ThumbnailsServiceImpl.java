@@ -99,6 +99,9 @@ class ThumbnailsServiceImpl implements ThumbnailsService {
                 ret.put(pmPreviewPrefix, new Dimension(pmImagePreviewWidth, pmImagePreviewHeight));
                 ret.put(pmPrefix, new Dimension(pmImageWidth, pmImageHeight));
                 break;
+
+            default:
+                break;
         }
         return ret;
     }
@@ -155,6 +158,9 @@ class ThumbnailsServiceImpl implements ThumbnailsService {
             case PRIVATE_MESSAGE:
                 dto.setImagePath(pmPrefix);
                 dto.setPreviewPath(pmPreviewPrefix);
+                break;
+
+            default:
                 break;
         }
         return dto;

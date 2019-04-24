@@ -65,7 +65,7 @@ public class EditController extends AbstractShowController {
     }
 
     @Override
-    List<BreadcrumbDto> getBreadcrumbs(ProfileDto dto) {
+    protected List<BreadcrumbDto> getBreadcrumbs(ProfileDto dto) {
         List<BreadcrumbDto> breadcrumbs = super.getBreadcrumbs();
         breadcrumbs.add(new BreadcrumbDto(PROFILE_LIST, recordService.getText("user.profiles.text.header")));
         String messageCode = dto.getId() == UserUtils.getCurrentUser().getId() ? "own.profile.text.header" : "profile.text.header";

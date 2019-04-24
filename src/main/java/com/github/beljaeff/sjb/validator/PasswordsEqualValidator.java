@@ -6,8 +6,6 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 public class PasswordsEqualValidator implements ConstraintValidator<PasswordsEqual, AbstractDoublePasswordForm> {
-    @Override
-    public void initialize(PasswordsEqual constraint) {}
 
     @Override
     public boolean isValid(AbstractDoublePasswordForm form, ConstraintValidatorContext constraintValidatorContext) {

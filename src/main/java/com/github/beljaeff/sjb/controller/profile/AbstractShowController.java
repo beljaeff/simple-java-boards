@@ -23,11 +23,11 @@ abstract public class AbstractShowController extends BaseController {
     private static final String ATTR_USER    = "user";
     private static final String ATTR_HEADER  = "header";
 
-    abstract List<BreadcrumbDto> getBreadcrumbs(ProfileDto dto);
+    abstract protected List<BreadcrumbDto> getBreadcrumbs(ProfileDto dto);
 
-    abstract String getHeader(ProfileDto dto);
+    abstract protected String getHeader(ProfileDto dto);
 
-    String showProfile(ProfileDto dto, ProfileSection section, Model model) {
+    protected String showProfile(ProfileDto dto, ProfileSection section, Model model) {
         if(dto == null) {
             log.error("Can not show null profile (null ProfileDto given)");
             throw new NotFoundException(Collections.singletonList(ErrorCode.PROFILE_NOT_FOUND));

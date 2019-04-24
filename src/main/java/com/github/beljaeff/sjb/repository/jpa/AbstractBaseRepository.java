@@ -80,7 +80,7 @@ abstract public class AbstractBaseRepository<T extends IdentifiedActiveEntity, S
      *
      * @return true if there is no inactive entities found, false otherwise
      */
-    boolean isEntityActive(Integer entityId, EntityType entityType, Boolean checkParents) {
+    protected boolean isEntityActive(Integer entityId, EntityType entityType, Boolean checkParents) {
         return (boolean)
             entityManager
                 .createNamedStoredProcedureQuery(IdentifiedActiveEntity.PROC_IS_ENTITY_ACTIVE)
@@ -99,7 +99,7 @@ abstract public class AbstractBaseRepository<T extends IdentifiedActiveEntity, S
      * @return resulting list of CommonEntity objects, ordered by id (just counter, descending order from root to leaf),
      * where type field can be 'post', 'topic', 'board' or 'category', ordered by id.
      */
-    List<CommonEntity> getBreadcrumbs(Integer entityId, EntityType entityType) {
+    protected List<CommonEntity> getBreadcrumbs(Integer entityId, EntityType entityType) {
         return entityManager
             .createNamedQuery(CommonEntity.PROC_GET_BREADCRUMBS, CommonEntity.class)
             .setParameter("entityId", entityId)

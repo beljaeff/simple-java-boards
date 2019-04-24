@@ -14,9 +14,9 @@ public class BoardDto extends BaseDto {
     private String link;
     private String description;
     private String icon;
-    List<BoardDto> boards;
+    private List<BoardDto> boards;
     private int topicsCount;
     private int postsCount;
     private TopicDto lastTopic;
-    PaginatedDto<TopicDto> topics;
+    private PaginatedDto<TopicDto> topics;
 }

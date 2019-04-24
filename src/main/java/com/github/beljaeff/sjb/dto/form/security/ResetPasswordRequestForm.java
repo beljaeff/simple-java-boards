@@ -3,7 +3,6 @@ package com.github.beljaeff.sjb.dto.form.security;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 

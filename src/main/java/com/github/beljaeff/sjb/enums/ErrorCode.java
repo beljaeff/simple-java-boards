@@ -33,12 +33,12 @@ public enum ErrorCode {
     AVATAR_NOT_SET("edit.avatar.avatar.not.set"),
     AVATAR_NOT_IMAGE("edit.avatar.avatar.not.image");
 
+    private String code;
+    private String field;
+
     ErrorCode(String code) {
         this.code = code;
     }
-
-    private String code;
-    private String field;
 
     public static ErrorCode getNotFoundByType(EntityType entityType) {
         for(ErrorCode code : ErrorCode.values()) {

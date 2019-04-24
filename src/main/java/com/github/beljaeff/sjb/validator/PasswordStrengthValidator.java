@@ -13,9 +13,6 @@ public class PasswordStrengthValidator implements ConstraintValidator<PasswordSt
     private int strength;
 
     @Override
-    public void initialize(PasswordStrength constraint) {}
-
-    @Override
     public boolean isValid(String password, ConstraintValidatorContext constraintValidatorContext) {
         if(password == null) {
             return  false;

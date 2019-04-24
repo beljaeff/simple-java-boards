@@ -8,7 +8,6 @@ import com.github.beljaeff.sjb.model.Post;
 import com.github.beljaeff.sjb.model.Topic;
 import com.github.beljaeff.sjb.repository.condition.BoardCondition;
 import com.github.beljaeff.sjb.repository.jpa.BoardRepositoryJpa;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +58,8 @@ class BoardRepositoryTest extends AbstractRepositoryTest<Board, BoardCondition> 
         return new BoardRepositoryJpa();
     }
 
-    private void verifyBreadcrumbs(Integer boardId) {
+    private void verifyBreadcrumbs(Integer id) {
+        Integer boardId = id;
         List<CommonEntity> breadcrumbs = repository.getBreadcrumbs(boardId);
         List<CommonEntity> expected = new ArrayList<>();
         int i = 1;
@@ -92,27 +92,27 @@ class BoardRepositoryTest extends AbstractRepositoryTest<Board, BoardCondition> 
     }
 
     @Test
-    void testGetAllNullId() {
+    public void testGetAllNullId() {
         BoardCondition condition = new BoardCondition();
         verifyLists(condition, 14);
     }
 
     @Test
-    void testGetAllNullCategoryBoardSort() {
+    public void testGetAllNullCategoryBoardSort() {
         BoardCondition condition = new BoardCondition();
         condition.setParentId(2);
         verifyLists(condition, 8, 5, 6);
     }
 
     @Test
-    void testGetAllNullParentBoardSort() {
+    public void testGetAllNullParentBoardSort() {
         BoardCondition condition = new BoardCondition();
         condition.setCategoryId(3);
         verifyLists(condition, 17, 16, 15);
     }
 
     @Test
-    void testGetAll() {
+    public void testGetAll() {
         BoardCondition condition = new BoardCondition();
         condition.setParentId(1);
         condition.setCategoryId(3);
@@ -120,7 +120,7 @@ class BoardRepositoryTest extends AbstractRepositoryTest<Board, BoardCondition> 
     }
 
     @Test
-    void testGetAllParentNotExistsCategoryExists() {
+    public void testGetAllParentNotExistsCategoryExists() {
         BoardCondition condition = new BoardCondition();
         condition.setParentId(1000);
         condition.setCategoryId(1);
@@ -129,7 +129,7 @@ class BoardRepositoryTest extends AbstractRepositoryTest<Board, BoardCondition> 
     }
 
     @Test
-    void testGetAllCategoryNotExists() {
+    public void testGetAllCategoryNotExists() {
         BoardCondition condition = new BoardCondition();
         condition.setParentId(1);
         condition.setCategoryId(1000);
@@ -148,7 +148,7 @@ class BoardRepositoryTest extends AbstractRepositoryTest<Board, BoardCondition> 
      */
     @Transactional
     @Test
-    void testDeleteBoard() {
+    public void testDeleteBoard() {
         int id = 5;
         Board board = repository.get(id);
         List<Board> parentBoards = getParentBoardsForCounts(board.getParentBoard(), board.getTopicsCount(),
@@ -182,7 +182,7 @@ class BoardRepositoryTest extends AbstractRepositoryTest<Board, BoardCondition> 
      * Check db constraint properly configured (there can be only one active board with title inside current category)
      */
     @Test
-    void testAddSame() {
+    public void testAddSame() {
         int parentId = 1;
         int categoryId = 3;
         Board board = new Board();
@@ -196,7 +196,7 @@ class BoardRepositoryTest extends AbstractRepositoryTest<Board, BoardCondition> 
     }
 
     @Test
-    void testAdd() {
+    public void testAdd() {
         int parentId = 7;
         Board board = new Board();
         board.setParentBoard(repository.get(parentId));
@@ -212,58 +212,58 @@ class BoardRepositoryTest extends AbstractRepositoryTest<Board, BoardCondition> 
     }
 
     @Test
-    void testUpdate() {
+    public void testUpdate() {
         int id = 1;
         Board board = repository.get(id);
         board.setTitle("title");
         repository.update(board);
-        Assertions.assertEquals(board.getTitle(), repository.get(id).getTitle());
+        assertEquals(board.getTitle(), repository.get(id).getTitle());
     }
 
     @Test
-    void testCheckActiveAncestorsNullId() {
+    public void testCheckActiveAncestorsNullId() {
         assertFalse(repository.isEntityActive(null, true));
     }
 
     @Test
-    void testCheckActiveAncestorsBoardWithNullParent() {
+    public void testCheckActiveAncestorsBoardWithNullParent() {
         assertTrue(repository.isEntityActive(1, true));
     }
 
     @Test
-    void testCheckActiveAncestorsInactiveBoard() {
+    public void testCheckActiveAncestorsInactiveBoard() {
         assertFalse(repository.isEntityActive(8, true));
     }
 
     @Test
-    void testCheckActiveAncestorsBoardWithInactiveParent() {
+    public void testCheckActiveAncestorsBoardWithInactiveParent() {
         assertFalse(repository.isEntityActive(9, true));
     }
 
     @Test
-    void testCheckActiveAncestorsNotExistentBoard() {
+    public void testCheckActiveAncestorsNotExistentBoard() {
         assertFalse(repository.isEntityActive(999, true));
     }
 
     @Test
-    void testGetBreadCrumbsNotExistentBoard() {
+    public void testGetBreadCrumbsNotExistentBoard() {
         assertEquals(0, repository.getBreadcrumbs(-100).size());
     }
 
     @Transactional
     @Test
-    void testGetBreadCrumbsTopBoard() {
+    public void testGetBreadCrumbsTopBoard() {
         verifyBreadcrumbs(1);
     }
 
     @Test
-    void testGetBreadCrumbsTopBoardWithoutCategory() {
+    public void testGetBreadCrumbsTopBoardWithoutCategory() {
         verifyBreadcrumbs(14);
     }
 
     @Transactional
     @Test
-    void testGetBreadCrumbs() {
+    public void testGetBreadCrumbs() {
         verifyBreadcrumbs(7);
     }
 }

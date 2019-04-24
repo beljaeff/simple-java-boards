@@ -87,7 +87,7 @@ public class BoardController extends AbstractController {
         return saveForm(form, bindingResult, redirectAttributes, form.getId() == 0 ? boardService::create : boardService::edit);
     }
 
-    void setFormUrls(BaseForm baseform) {
+    protected void setFormUrls(BaseForm baseform) {
         BoardForm form = (BoardForm) baseform;
         // Edit board
         if(form.getId() > 0) {

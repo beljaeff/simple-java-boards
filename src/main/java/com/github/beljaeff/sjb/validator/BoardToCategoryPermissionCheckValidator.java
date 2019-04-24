@@ -15,9 +15,6 @@ import static com.github.beljaeff.sjb.util.UserUtils.hasPermission;
 public class BoardToCategoryPermissionCheckValidator implements ConstraintValidator<BoardToCategoryPermissionCheck, BoardForm> {
 
     @Override
-    public void initialize(BoardToCategoryPermissionCheck constraintAnnotation) {}
-
-    @Override
     public boolean isValid(BoardForm form, ConstraintValidatorContext context) {
         // If user add board into category he should have permission to do it
         if(form.getId() == 0 && form.getCategory() != null &&

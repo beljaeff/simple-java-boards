@@ -17,7 +17,7 @@ abstract public class AbstractPositionableService<T extends PositionedEntity>
      * @param direction - true means move up, false means move down
      */
     @Transactional
-    ActionStatusDto<T> changePosition(int id, boolean direction) {
+    protected ActionStatusDto<T> changePosition(int id, boolean direction) {
         ActionStatusDto<T> actionStatus = getRepository().getForPositionChanging(id);
         T entity = actionStatus.getEntity();
         if(entity != null && actionStatus.getStatus()) {

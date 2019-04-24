@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collections;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class UserRepositoryTest extends AbstractPageableRepositoryTest<User, UserCondition> {
 
@@ -22,7 +22,7 @@ public class UserRepositoryTest extends AbstractPageableRepositoryTest<User, Use
     }
 
     @Override
-    PageableRepository<User, UserCondition> getRepository() {
+    protected PageableRepository<User, UserCondition> getRepository() {
         return repository;
     }
 
@@ -42,12 +42,12 @@ public class UserRepositoryTest extends AbstractPageableRepositoryTest<User, Use
     }
 
     @Override
-    String getEntityGraph() {
+    protected String getEntityGraph() {
         return EntityGraphs.USERS_WITH_AVATAR;
     }
 
     @Test
-    void testGetAllSort() {
+    public void testGetAllSort() {
         // Also checks case when userCondition.groups == null
         verifyLists(new UserCondition(), 1, 0, 55, 64, 65, 66, 56, 57, 58, 59, 60, 61, 62, 63);
 
@@ -61,7 +61,7 @@ public class UserRepositoryTest extends AbstractPageableRepositoryTest<User, Use
      * in makePagination don't return NPE
      */
     @Test
-    void testGetPagedConditionNull() {
-        repository.getPageableList(new UserCondition(), 1, null);
+    public void testGetPagedConditionNull() {
+        assertNotNull(repository.getPageableList(new UserCondition(), 1, null));
     }
 }

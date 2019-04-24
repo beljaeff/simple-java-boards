@@ -89,7 +89,7 @@ public class PostMapper extends AbstractMapper {
         return result;
     }
 
-    PaginatedDto<PostDto> postToPostDto(List<Post> posts) {
+    public PaginatedDto<PostDto> postToPostDto(List<Post> posts) {
         if(!isLoaded(posts)) {
             return null;
         }

@@ -19,15 +19,15 @@ abstract public class AbstractMapper {
     @Value("${date.time.pattern}")
     private String dateTimePattern;
 
-    String dateToString(LocalDate date) {
+    protected String dateToString(LocalDate date) {
         return date == null ? null : date.format(DateTimeFormatter.ofPattern(datePattern));
     }
 
-    String dateTimeToString(LocalDateTime dateTime) {
+    protected String dateTimeToString(LocalDateTime dateTime) {
         return dateTime == null ? null : dateTime.format(DateTimeFormatter.ofPattern(dateTimePattern));
     }
 
-    boolean isLoaded(Object o) {
+    protected boolean isLoaded(Object o) {
         PersistenceUnitUtil unitUtil = entityManager.getEntityManagerFactory().getPersistenceUnitUtil();
         return unitUtil.isLoaded(o);
     }

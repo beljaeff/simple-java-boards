@@ -1,6 +1,6 @@
 [![Known Vulnerabilities](https://snyk.io/test/github/beljaeff/simple-java-boards/badge.svg)](https://snyk.io/test/github/beljaeff/simple-java-boards) 
 [![Build Status](https://travis-ci.org/beljaeff/simple-java-boards.svg?branch=master)](https://travis-ci.org/beljaeff/simple-java-boards)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/9b89083d38d8457a8efeddc8d455c745)](https://www.codacy.com/app/beljaeff/simple-java-boards?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=beljaeff/simple-java-boards&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/7c8107744ac14ebe9a28380a13d904ec)](https://www.codacy.com/app/beljaeff/simple-java-boards?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=beljaeff/simple-java-boards&amp;utm_campaign=Badge_Grade)
 
 # Simple Java Boards
 
@@ -99,6 +99,10 @@ $ mvn clean install cargo:run
 
 After that you can open ```http://localhost:9090/``` in your browser and work with forum.
 Default administrator account have login ```Admin``` and password ```password```.
+
+To avoid running tests use ```-Dmaven.test.skip=true``` parameter when call ```mvn```.
+
+If you want disable automatic liquibase execution during build you can add parameter ```-Dliquibase.should.run=false``` when call ```mvn```. 
 
 ## Screenshots
 <img src="https://raw.githubusercontent.com/beljaeff/simple-java-boards/master/screenshots/desktop/main.png" />

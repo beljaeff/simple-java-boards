@@ -57,7 +57,7 @@ public class UserMapper extends AbstractMapper {
         return dto;
     }
 
-    PaginatedDto<UserDto> userToUserDto(List<User> users) {
+    public PaginatedDto<UserDto> userToUserDto(List<User> users) {
         if(!isLoaded(users)) {
             return null;
         }

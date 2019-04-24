@@ -82,7 +82,7 @@ public class CategoryController extends AbstractController {
         return saveForm(form, bindingResult, redirectAttributes, form.getId() == 0 ? categoryService::create : categoryService::edit);
     }
 
-    void setFormUrls(BaseForm baseForm) {
+    protected void setFormUrls(BaseForm baseForm) {
         CategoryForm form = (CategoryForm)baseForm;
         String formUrl = form.getId() == 0
                 ? CATEGORY_ADD

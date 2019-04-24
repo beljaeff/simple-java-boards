@@ -147,7 +147,7 @@ public class TopicMapper extends AbstractMapper {
         return result;
     }
 
-    PaginatedDto<TopicDto> topicToTopicDto(List<Topic> topics) {
+    public PaginatedDto<TopicDto> topicToTopicDto(List<Topic> topics) {
         if(!isLoaded(topics)) {
             return null;
         }

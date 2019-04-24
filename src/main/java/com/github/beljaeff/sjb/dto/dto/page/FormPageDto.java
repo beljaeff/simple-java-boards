@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 public class FormPageDto <S extends BaseDto, T extends BaseForm> extends PageDto<S> {
-    T form;
+    private T form;
 
     public FormPageDto(S entity, T form, String title, List<BreadcrumbDto> breadcrumbs) {
         super(entity, title, breadcrumbs);

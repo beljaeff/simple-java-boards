@@ -84,7 +84,7 @@ public class TopicController extends AbstractController {
         return saveForm(form, bindingResult, redirectAttributes, topicService::edit);
     }
 
-    void setFormUrls(BaseForm baseForm) {
+    protected void setFormUrls(BaseForm baseForm) {
         TopicForm form = (TopicForm)baseForm;
         if(form.getId() == 0) {
             form.setFormUrl(buildSegmentsPath(Routes.TOPIC_CREATE, form.getIdBoard()));

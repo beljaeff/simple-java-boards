@@ -1,14 +1,13 @@
 package com.github.beljaeff.sjb.util;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static org.springframework.util.StringUtils.isEmpty;
 import static com.github.beljaeff.sjb.controller.Routes.ROOT_URL;
+import static org.springframework.util.StringUtils.isEmpty;
 
 @Slf4j
 public class HttpUtils {
@@ -17,7 +16,7 @@ public class HttpUtils {
 
     public static String getRootPath() {
         ServletRequestAttributes sra = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        if(sra == null || sra.getRequest() == null || StringUtils.isEmpty(sra.getRequest().getContextPath())) {
+        if(sra == null || sra.getRequest() == null || isEmpty(sra.getRequest().getContextPath())) {
             return ROOT_URL;
         }
         return sra.getRequest().getContextPath();

@@ -1,16 +1,10 @@
 package com.github.beljaeff.sjb.repository;
 
-import com.github.beljaeff.sjb.model.PagedEntityList;
 import com.github.beljaeff.sjb.model.common.IdentifiedActiveEntity;
 import com.github.beljaeff.sjb.repository.condition.Condition;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Spy;
 import org.springframework.test.util.ReflectionTestUtils;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
 
 abstract public class AbstractPageableRepositoryTest<T extends IdentifiedActiveEntity, S extends Condition> extends AbstractRepositoryTest<T, S> {
 
@@ -19,13 +13,13 @@ abstract public class AbstractPageableRepositoryTest<T extends IdentifiedActiveE
     @Spy
     protected PageableRepository<T, S> mockRepository = getMockRepository();
 
-    abstract PageableRepository<T, S> getMockRepository();
-    abstract PageableRepository<T, S> getRepository();
+    abstract protected PageableRepository<T, S> getMockRepository();
+    abstract protected PageableRepository<T, S> getRepository();
 
-    abstract String getEntityGraph();
+    abstract protected String getEntityGraph();
 
     @BeforeEach
-    void init() {
+    public void init() {
         ReflectionTestUtils.setField(mockRepository, "pageSize", PAGE_SIZE);
         ReflectionTestUtils.setField(mockRepository, "entityManager", entityManager);
     }
@@ -69,7 +63,6 @@ abstract public class AbstractPageableRepositoryTest<T extends IdentifiedActiveE
         ReflectionTestUtils.setField(mockRepository, "pageSize", -1);
         runTestIncorrectPageSize();
     }
-*/
 
     private void runTestIncorrectPageSize() {
         PagedEntityList<T> ret = mockRepository.getPageableList(getCondition(), 1, getEntityGraph());
@@ -79,6 +72,7 @@ abstract public class AbstractPageableRepositoryTest<T extends IdentifiedActiveE
         assertEquals(1, ret.getCurrentPage());
         assertEquals(2, ret.getTotalPages());
     }
+*/
 
 /*
    TODO: refactoring

@@ -82,7 +82,7 @@ public class EditOwnController extends AbstractShowController {
     }
 
     @Override
-    List<BreadcrumbDto> getBreadcrumbs(ProfileDto dto) {
+    protected List<BreadcrumbDto> getBreadcrumbs(ProfileDto dto) {
         List<BreadcrumbDto> breadcrumbs = super.getBreadcrumbs();
         breadcrumbs.add(new BreadcrumbDto(PROFILE_LIST, recordService.getText("user.profiles.text.header")));
         String messageCode = dto.getId() == UserUtils.getCurrentUser().getId() ? "own.profile.text.header" : "profile.text.header";
@@ -218,7 +218,8 @@ public class EditOwnController extends AbstractShowController {
     }
 
     @GetMapping(USER_PROFILE_EDIT_OVERVIEW)
-    public String showEditOverviewForm(@PathVariable int id, EditOverviewForm form, Model model) {
+    public String showEditOverviewForm(@PathVariable int id, EditOverviewForm formGiven, Model model) {
+        EditOverviewForm form = formGiven;
         if(id != UserUtils.getCurrentUser().getId()) {
             log.error("Edit overview form: requested account id '{}' does not match current user account id '{}'", id, UserUtils.getCurrentUser().getUser().getId());
             throw new ForbiddenException();

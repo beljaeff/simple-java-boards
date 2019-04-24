@@ -3,7 +3,6 @@ package com.github.beljaeff.sjb.repository;
 import com.github.beljaeff.sjb.model.Category;
 import com.github.beljaeff.sjb.repository.condition.CategoryCondition;
 import com.github.beljaeff.sjb.repository.jpa.CategoryRepositoryJpa;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,19 +49,19 @@ class CategoryRepositoryTest extends AbstractRepositoryTest<Category, CategoryCo
     }
 
     @Test
-    void testGetAll() {
+    public void testGetAll() {
         CategoryCondition condition = new CategoryCondition();
         condition.setParentBoardId(1);
         verifyLists(condition, 3);
     }
 
     @Test
-    void testGetAllNullIdWithSort() {
+    public void testGetAllNullIdWithSort() {
         verifyLists(new CategoryCondition(), 3, 4, 2, 1);
     }
 
     @Test
-    void testGetAllIdNotExists() {
+    public void testGetAllIdNotExists() {
         CategoryCondition condition = new CategoryCondition();
         condition.setParentBoardId(1000);
         List<Category> list = getRepository().getList(condition, null);
@@ -71,7 +70,7 @@ class CategoryRepositoryTest extends AbstractRepositoryTest<Category, CategoryCo
 
     @Transactional
     @Test
-    void testDeleteCategory() {
+    public void testDeleteCategory() {
         int id = 4;
         assertTrue(repository.delete(id));
         entityManager.flush();
@@ -82,7 +81,7 @@ class CategoryRepositoryTest extends AbstractRepositoryTest<Category, CategoryCo
 
     @Transactional
     @Test
-    void testAdd() {
+    public void testAdd() {
         Category category = new Category();
         category.setTitle("new3");
         category.setIsActive(true);
@@ -95,11 +94,11 @@ class CategoryRepositoryTest extends AbstractRepositoryTest<Category, CategoryCo
     }
 
     @Test
-    void testUpdate() {
+    public void testUpdate() {
         int id = 4;
         Category category = repository.get(id);
         category.setTitle("ttl");
         repository.update(category);
-        Assertions.assertEquals(category.getTitle(), repository.get(id).getTitle());
+        assertEquals(category.getTitle(), repository.get(id).getTitle());
     }
 }
