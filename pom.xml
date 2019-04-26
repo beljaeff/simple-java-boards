@@ -8,7 +8,7 @@
     <artifactId>sjb</artifactId>
     <packaging>war</packaging>
 
-    <version>0.1-dev-SNAPSHOT</version>
+    <version>0.1</version>
 
     <name>Simple Java Boards</name>
     <url>https://github.com/beljaeff/simple-java-boards</url>
