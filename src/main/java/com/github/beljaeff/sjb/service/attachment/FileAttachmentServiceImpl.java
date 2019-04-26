@@ -33,15 +33,6 @@ class FileAttachmentServiceImpl implements FileAttachmentService {
     @Value("${uri.upload.prefix}")
     private String uploadPrefix;
 
-    @Value("${posts.folder}")
-    private String postsFolder;
-
-    @Value("${pm.folder}")
-    private String pmFolder;
-
-    @Value("${avatars.folder}")
-    private String avatarsFolder;
-
     private ThumbnailsService thumbnailsService;
 
     @Autowired
@@ -67,8 +58,20 @@ class FileAttachmentServiceImpl implements FileAttachmentService {
                 .toString();
 
         Path p = Paths.get(path);
-        if(Files.notExists(p) || !Files.isDirectory(p) || !Files.isReadable(p) || !Files.isWritable(p)) {
-            log.error("Attachment upload path not exists, not a directory or not readable/writable: '{}'", path);
+        if(Files.notExists(p)) {
+            try {
+                log.warn("Given upload directory '{}' to upload '{}' does not exist. Trying to create it.", path, type.getType());
+                Files.createDirectories(p);
+                log.info("Directory '{}' to upload '{}' created successfully.", path, type.getType());
+            }
+            catch(IOException ioe) {
+                log.error("Error creating directory '{}' to upload '{}'", path, type.getType());
+                log.error(ioe.getMessage(), ioe);
+                throw new AttachmentException();
+            }
+        }
+        if(!Files.isDirectory(p) || !Files.isReadable(p) || !Files.isWritable(p)) {
+            log.error("Attachment upload path not a directory or not readable/writable: '{}'", path);
             throw new AttachmentException();
         }
 
@@ -139,7 +142,7 @@ class FileAttachmentServiceImpl implements FileAttachmentService {
 
         String filePath = calculatePath(attachment, getUploadPath(type));
         Path directoryPath = Paths.get(filePath).getParent();
-        if(!Files.exists(directoryPath)) {
+        if(Files.notExists(directoryPath)) {
             try {
                 Files.createDirectories(directoryPath);
             }
