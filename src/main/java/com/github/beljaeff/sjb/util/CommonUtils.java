@@ -20,7 +20,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 //TODO: tests
-public class Utils {
+public class CommonUtils {
 
     private static final String JPG = "image/jpeg";
     private static final String PNG = "image/gif";

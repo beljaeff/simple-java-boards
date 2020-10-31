@@ -15,7 +15,7 @@ import com.github.beljaeff.sjb.dto.form.profile.ChangeSecretAnswerForm;
 import com.github.beljaeff.sjb.dto.form.profile.EditAvatarForm;
 import com.github.beljaeff.sjb.dto.form.profile.EditOverviewForm;
 import com.github.beljaeff.sjb.model.Attachment;
-import com.github.beljaeff.sjb.model.EntityGraphs;
+import com.github.beljaeff.sjb.model.EntityGraphNamesHelper;
 import com.github.beljaeff.sjb.model.User;
 import com.github.beljaeff.sjb.mapper.ProfileMapper;
 
@@ -127,7 +127,7 @@ public class EditOwnProfileServiceImpl implements EditOwnProfileService {
     @Override
     @Transactional
     public void removeAvatar() {
-        User user = userService.getWithGraph(getCurrentUser().getId(), EntityGraphs.USERS_WITH_AVATAR);
+        User user = userService.getWithGraph(getCurrentUser().getId(), EntityGraphNamesHelper.USERS_WITH_AVATAR);
         Attachment avatar = user.getAvatar();
         if(avatar != null) {
             user.setAvatar(null);

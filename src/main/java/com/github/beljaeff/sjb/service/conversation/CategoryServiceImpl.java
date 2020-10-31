@@ -10,7 +10,7 @@ import com.github.beljaeff.sjb.enums.BasePermission;
 import com.github.beljaeff.sjb.exception.NotFoundException;
 import com.github.beljaeff.sjb.model.Board;
 import com.github.beljaeff.sjb.model.Category;
-import com.github.beljaeff.sjb.model.EntityGraphs;
+import com.github.beljaeff.sjb.model.EntityGraphNamesHelper;
 import com.github.beljaeff.sjb.repository.BoardRepository;
 import com.github.beljaeff.sjb.repository.CategoryRepository;
 import com.github.beljaeff.sjb.repository.PositionableRepository;
@@ -78,7 +78,7 @@ public class CategoryServiceImpl extends AbstractPositionableService<Category> i
                 .hasPermission(BasePermission.ADMIN))) {
             categoryCondition.setIsActive(true);
         }
-        final List<Category> categoryList = categoryRepository.getList(categoryCondition, EntityGraphs.CATEGORIES_WITH_BOARDS);
+        final List<Category> categoryList = categoryRepository.getList(categoryCondition, EntityGraphNamesHelper.CATEGORIES_WITH_BOARDS);
 
         // Get top level boards without category and parent
         BoardCondition boardCondition = new BoardCondition();
@@ -86,7 +86,7 @@ public class CategoryServiceImpl extends AbstractPositionableService<Category> i
                 BasePermission.ADMIN))) {
             boardCondition.setIsActive(true);
         }
-        List<Board> boards = boardRepository.getList(boardCondition, EntityGraphs.BOARDS_WITH_LAST_TOPIC);
+        List<Board> boards = boardRepository.getList(boardCondition, EntityGraphNamesHelper.BOARDS_WITH_LAST_TOPIC);
         if(!isEmpty(boards)) {
             Category fakeCategory = getFakeCategory();
             fakeCategory.setBoards(boards);
@@ -103,7 +103,7 @@ public class CategoryServiceImpl extends AbstractPositionableService<Category> i
      */
     @Override
     public PageDto<CategoryDto> getCategory(int id) {
-        CategoryDto category = categoryMapper.categoryToCategoryDto(getWithGraph(id, EntityGraphs.CATEGORIES_WITH_BOARDS));
+        CategoryDto category = categoryMapper.categoryToCategoryDto(getWithGraph(id, EntityGraphNamesHelper.CATEGORIES_WITH_BOARDS));
         return new PageDto<>(category, category.getTitle(), getBreadcrumbs(id));
     }
 

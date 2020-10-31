@@ -1,6 +1,6 @@
 package com.github.beljaeff.sjb.model;
 
-public class EntityGraphs {
+public class EntityGraphNamesHelper {
     public static final String HINT_FETCH = "javax.persistence.fetchgraph";
 
     public static final String CATEGORIES_WITH_BOARDS = "categoriesWith.boards";

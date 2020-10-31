@@ -29,11 +29,11 @@ import java.util.Set;
  * Also it is possible to add additional groups with its own permissions
  */
 
-@NamedEntityGraph(name = EntityGraphs.GROUPS_WITH_PERMISSIONS,
+@NamedEntityGraph(name = EntityGraphNamesHelper.GROUPS_WITH_PERMISSIONS,
         attributeNodes = @NamedAttributeNode(value = "permissions")
 )
 
-@NamedEntityGraph(name = EntityGraphs.GROUPS_WITH_OWNERS,
+@NamedEntityGraph(name = EntityGraphNamesHelper.GROUPS_WITH_OWNERS,
         attributeNodes = @NamedAttributeNode(value = "owners")
 )
 

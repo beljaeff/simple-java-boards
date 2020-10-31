@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.github.beljaeff.sjb.controller.common.BaseController;
 
-import static com.github.beljaeff.sjb.controller.Routes.PROFILE_LIST;
+import static com.github.beljaeff.sjb.controller.RoutesHelper.PROFILE_LIST;
 
 @Controller
 @PreAuthorize("hasAnyPermissions('VIEW', 'ADMIN')")

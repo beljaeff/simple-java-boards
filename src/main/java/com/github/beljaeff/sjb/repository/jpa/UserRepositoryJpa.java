@@ -27,9 +27,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static com.github.beljaeff.sjb.model.EntityGraphs.HINT_FETCH;
+import static com.github.beljaeff.sjb.model.EntityGraphNamesHelper.HINT_FETCH;
 import static com.github.beljaeff.sjb.util.UserUtils.ANONYMOUS_ID;
-import static com.github.beljaeff.sjb.util.Utils.mapGroupsByUserId;
+import static com.github.beljaeff.sjb.util.CommonUtils.mapGroupsByUserId;
 
 //TODO: test CRUD user
 @Repository

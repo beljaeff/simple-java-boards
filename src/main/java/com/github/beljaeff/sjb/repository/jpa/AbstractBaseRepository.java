@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.github.beljaeff.sjb.model.EntityGraphs.HINT_FETCH;
+import static com.github.beljaeff.sjb.model.EntityGraphNamesHelper.HINT_FETCH;
 
 abstract public class AbstractBaseRepository<T extends IdentifiedActiveEntity, S extends Condition> implements BaseRepository<T, S> {
 

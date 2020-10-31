@@ -33,7 +33,7 @@ public class AttachmentController extends BaseController {
     }
 
     @PreAuthorize("hasPermission('VIEW_ATTACHMENTS') && hasPermission('VIEW') || hasPermission('ADMIN')")
-    @GetMapping(Routes.ATTACHMENT_GET)
+    @GetMapping(RoutesHelper.ATTACHMENT_GET)
     public void get(@PathVariable int id, HttpServletRequest request, HttpServletResponse response) {
         ServletContext servletContext = request.getServletContext();
 

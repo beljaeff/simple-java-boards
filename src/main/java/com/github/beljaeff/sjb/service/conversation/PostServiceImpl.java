@@ -11,7 +11,7 @@ import com.github.beljaeff.sjb.exception.NotFoundException;
 import com.github.beljaeff.sjb.mapper.PostMapper;
 import com.github.beljaeff.sjb.mapper.TopicMapper;
 import com.github.beljaeff.sjb.model.Attachment;
-import com.github.beljaeff.sjb.model.EntityGraphs;
+import com.github.beljaeff.sjb.model.EntityGraphNamesHelper;
 import com.github.beljaeff.sjb.model.Post;
 import com.github.beljaeff.sjb.model.Topic;
 import com.github.beljaeff.sjb.model.User;
@@ -81,7 +81,7 @@ public class PostServiceImpl extends AbstractHasAttachmentsService<Post> impleme
     @Override
     @Transactional(readOnly = true)
     public Post get(int id) {
-        Post post = postRepository.get(id, EntityGraphs.POST_WITH_ATTACHMENTS_AND_TOPIC_WITH_BOARD);
+        Post post = postRepository.get(id, EntityGraphNamesHelper.POST_WITH_ATTACHMENTS_AND_TOPIC_WITH_BOARD);
         boolean isAncestorsActive = post != null && postRepository.isEntityActive(id, true);
         //TODO check access to restricted board (private access)
         if(post == null ||
@@ -161,14 +161,13 @@ public class PostServiceImpl extends AbstractHasAttachmentsService<Post> impleme
         Assert.notNull(form, "edit post form should be set");
 
         String ip = request.getRemoteAddr();
-
         Post post = get(form.getId());
-
         User currentUser = UserUtils.getCurrentUser().getUser();
         User user = userRepository.get(currentUser.getId());
 
-        if(UserUtils.hasPermission(BasePermission.EDIT_OWN_POST) && !UserUtils.hasPermission(BasePermission.ADMIN) && !UserUtils.hasPermission(
-                BasePermission.EDIT_POST)) {
+        if(UserUtils.hasPermission(BasePermission.EDIT_OWN_POST) &&
+          !UserUtils.hasPermission(BasePermission.ADMIN) &&
+          !UserUtils.hasPermission(BasePermission.EDIT_POST)) {
             if(post.getAuthor().getId() != UserUtils.getCurrentUser().getId()) {
                 log.error("Not owner '{}' post '{}' modifying request attempt ", UserUtils.getCurrentUser().getUser().getNickName(), form.getId());
                 throw new ForbiddenException();
@@ -185,23 +184,28 @@ public class PostServiceImpl extends AbstractHasAttachmentsService<Post> impleme
         if(!UserUtils.hasPermission(BasePermission.MOVE_POST) && !UserUtils.hasPermission(BasePermission.MOVE_POST) && form.getIdTopic() != post.getTopic().getId()) {
             form.setIdTopic(post.getTopic().getId());
         }
+
+        Topic topic = getTopic(form.getIdTopic());
+        Post parent = getParent(form.getIdParent());
+        List<Attachment> attachments = commonAttachmentService.mergePostAttachments(form.getAttachments(), post.getAttachments());
+        postMapper.updatePostFromForm(post, form, ip, topic, parent, user, attachments);
+        postRepository.update(post);
+    }
+
+    private Topic getTopic(Integer idTopic) {
         Topic topic = null;
-        if(form.getIdTopic() != null) {
-            topic = topicService.get(form.getIdTopic());
+        if(idTopic != null) {
+            topic = topicService.get(idTopic);
             if(topic.getIsLocked()) {
                 log.error("Edting post from locked topic '{}' request attempt by '{}'", topic.getId(), UserUtils.getCurrentUser().getUser().getNickName());
                 throw new ForbiddenException();
             }
         }
-        Post parent = null;
-        if(form.getIdParent() != null) {
-            parent = get(form.getIdParent());
-        }
+        return topic;
+    }
 
-        List<Attachment> attachments = commonAttachmentService.mergePostAttachments(form.getAttachments(), post.getAttachments());
-
-        postMapper.updatePostFromForm(post, form, ip, topic, parent, user, attachments);
-        postRepository.update(post);
+    private Post getParent(Integer idParent) {
+        return idParent != null ? get(idParent) : null;
     }
 
     @Override
@@ -276,7 +280,7 @@ public class PostServiceImpl extends AbstractHasAttachmentsService<Post> impleme
     @Override
     @Transactional
     public ActionStatusDto<Post> removeAttachment(int id, int attachmentId) {
-        Post post = getWithGraph(id, EntityGraphs.POST_WITH_AUTHOR_AND_ATTACHMENTS);
+        Post post = getWithGraph(id, EntityGraphNamesHelper.POST_WITH_AUTHOR_AND_ATTACHMENTS);
 
         if(post == null || CollectionUtils.isEmpty(post.getAttachments())) {
             log.error("Remove attachment {} for null post request attempt by {}", id, UserUtils.getCurrentUser().getUser().getNickName());

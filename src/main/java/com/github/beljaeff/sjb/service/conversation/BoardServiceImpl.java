@@ -11,7 +11,7 @@ import com.github.beljaeff.sjb.mapper.BoardMapper;
 import com.github.beljaeff.sjb.mapper.TopicMapper;
 import com.github.beljaeff.sjb.model.Board;
 import com.github.beljaeff.sjb.model.Category;
-import com.github.beljaeff.sjb.model.EntityGraphs;
+import com.github.beljaeff.sjb.model.EntityGraphNamesHelper;
 import com.github.beljaeff.sjb.model.PagedEntityList;
 import com.github.beljaeff.sjb.repository.BoardRepository;
 import com.github.beljaeff.sjb.repository.PositionableRepository;
@@ -70,8 +70,20 @@ public class BoardServiceImpl extends AbstractPositionableService<Board> impleme
     @Override
     @Transactional(readOnly = true)
     public PageDto<BoardDto> getBoard(int id, int topicPage) {
-        Board board = getWithGraph(id, EntityGraphs.BOARD_WITH_CHILD_BOARDS);
+        Board board = getWithGraph(id, EntityGraphNamesHelper.BOARD_WITH_CHILD_BOARDS);
 
+        TopicCondition condition = getConditionForBoard(id);
+        PagedEntityList<Topic> topics = topicRepository.getPageableList(condition, topicPage, EntityGraphNamesHelper.TOPIC_WITH_LAST_POST_AND_AUTHOR);
+        if(topicPage < 1 || topicPage > topics.getTotalPages()) {
+            log.error("Requested topic page does not exist");
+            throw new NotFoundException();
+        }
+        BoardDto entity = boardMapper.boardToBoardDto(board);
+        entity.setTopics(topicMapper.topicToTopicDto(topics));
+        return new PageDto<>(entity, entity.getTitle(), getBreadcrumbs(id));
+    }
+
+    private TopicCondition getConditionForBoard(int id) {
         TopicCondition condition = new TopicCondition();
         condition.setBoardId(id);
         if(!(UserUtils.hasPermission(BasePermission.ACTIVATE_TOPIC) || UserUtils.hasPermission(BasePermission.EDIT_TOPIC) || UserUtils.hasPermission(
@@ -90,15 +102,7 @@ public class BoardServiceImpl extends AbstractPositionableService<Board> impleme
                 BasePermission.ADMIN))) {
             condition.setPostsIsApproved(true);
         }
-
-        PagedEntityList<Topic> topics = topicRepository.getPageableList(condition, topicPage, EntityGraphs.TOPIC_WITH_LAST_POST_AND_AUTHOR);
-        if(topicPage < 1 || topicPage > topics.getTotalPages()) {
-            log.error("Requested topic page does not exist");
-            throw new NotFoundException();
-        }
-        BoardDto entity = boardMapper.boardToBoardDto(board);
-        entity.setTopics(topicMapper.topicToTopicDto(topics));
-        return new PageDto<>(entity, entity.getTitle(), getBreadcrumbs(id));
+        return condition;
     }
 
     @Override

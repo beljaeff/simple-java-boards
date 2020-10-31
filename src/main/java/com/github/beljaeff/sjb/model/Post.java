@@ -37,7 +37,7 @@ import static com.github.beljaeff.sjb.util.DateTimeUtils.DATE_TIME_PATTERN;
 /*
  * Set fields for displaying posts with last post and author
  */
-@NamedEntityGraph(name = EntityGraphs.POST_EXCEPT_TOPIC_AND_CHILD_POSTS,
+@NamedEntityGraph(name = EntityGraphNamesHelper.POST_EXCEPT_TOPIC_AND_CHILD_POSTS,
         attributeNodes = {
                 @NamedAttributeNode(value = "parentPost"),
                 @NamedAttributeNode(value = "author", subgraph = "usersWith.avatar"),
@@ -51,14 +51,14 @@ import static com.github.beljaeff.sjb.util.DateTimeUtils.DATE_TIME_PATTERN;
         }
 )
 
-@NamedEntityGraph(name = EntityGraphs.POST_WITH_AUTHOR_AND_ATTACHMENTS,
+@NamedEntityGraph(name = EntityGraphNamesHelper.POST_WITH_AUTHOR_AND_ATTACHMENTS,
         attributeNodes = {
                 @NamedAttributeNode(value = "attachments"),
                 @NamedAttributeNode(value = "author")
         }
 )
 
-@NamedEntityGraph(name = EntityGraphs.POST_WITH_ATTACHMENTS_AND_TOPIC_WITH_BOARD,
+@NamedEntityGraph(name = EntityGraphNamesHelper.POST_WITH_ATTACHMENTS_AND_TOPIC_WITH_BOARD,
         attributeNodes = {
                 @NamedAttributeNode(value = "attachments"),
                 @NamedAttributeNode(value = "topic", subgraph = "topicWith.board"),

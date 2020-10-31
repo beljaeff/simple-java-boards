@@ -5,7 +5,7 @@ import com.github.beljaeff.sjb.model.Attachment;
 import com.github.beljaeff.sjb.model.Attachment_;
 import com.github.beljaeff.sjb.model.Board_;
 import com.github.beljaeff.sjb.model.CommonEntity;
-import com.github.beljaeff.sjb.model.EntityGraphs;
+import com.github.beljaeff.sjb.model.EntityGraphNamesHelper;
 import com.github.beljaeff.sjb.model.PagedEntityList;
 import com.github.beljaeff.sjb.model.Post;
 import com.github.beljaeff.sjb.model.Post_;
@@ -101,7 +101,7 @@ public class TopicRepositoryJpa extends AbstractPageableRepository<Topic, TopicC
 
         if(entityGraphName != null) {
             EntityGraph graph = entityManager.getEntityGraph(entityGraphName);
-            typedQuery.setHint(EntityGraphs.HINT_FETCH, graph);
+            typedQuery.setHint(EntityGraphNamesHelper.HINT_FETCH, graph);
         }
 
         return makePagination(page, pageSize, criteriaBuilder, resultCondition, typedQuery);

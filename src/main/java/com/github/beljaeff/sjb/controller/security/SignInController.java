@@ -4,7 +4,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import static com.github.beljaeff.sjb.controller.Routes.SIGN_IN;
+import static com.github.beljaeff.sjb.controller.RoutesHelper.SIGN_IN;
 
 @PreAuthorize("isAnonymous()")
 @Controller

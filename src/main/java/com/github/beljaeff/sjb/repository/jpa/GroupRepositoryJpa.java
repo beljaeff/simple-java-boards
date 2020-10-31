@@ -23,8 +23,8 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.springframework.util.CollectionUtils.isEmpty;
-import static com.github.beljaeff.sjb.model.EntityGraphs.GROUPS_WITH_OWNERS;
-import static com.github.beljaeff.sjb.model.EntityGraphs.HINT_FETCH;
+import static com.github.beljaeff.sjb.model.EntityGraphNamesHelper.GROUPS_WITH_OWNERS;
+import static com.github.beljaeff.sjb.model.EntityGraphNamesHelper.HINT_FETCH;
 
 //TODO: tests
 @Repository

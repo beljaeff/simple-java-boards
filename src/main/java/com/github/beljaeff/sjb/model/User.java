@@ -42,7 +42,7 @@ import static com.github.beljaeff.sjb.util.DateTimeUtils.DATE_TIME_PATTERN;
 /*
  * Set fields for displaying user list
  */
-@NamedEntityGraph(name = EntityGraphs.USERS_WITH_AVATAR,
+@NamedEntityGraph(name = EntityGraphNamesHelper.USERS_WITH_AVATAR,
         attributeNodes = {
                 @NamedAttributeNode(value = "avatar")
         }
@@ -51,7 +51,7 @@ import static com.github.beljaeff.sjb.util.DateTimeUtils.DATE_TIME_PATTERN;
 /*
  * Set fields for displaying user profile overview and user profile groups
  */
-@NamedEntityGraph(name = EntityGraphs.USERS_WITH_AVATAR_AND_GROUPS,
+@NamedEntityGraph(name = EntityGraphNamesHelper.USERS_WITH_AVATAR_AND_GROUPS,
         attributeNodes = {
                 @NamedAttributeNode(value = "avatar"),
                 @NamedAttributeNode(value = "groups")
@@ -61,7 +61,7 @@ import static com.github.beljaeff.sjb.util.DateTimeUtils.DATE_TIME_PATTERN;
 /*
  * Set fields for displaying user profile messages
  */
-@NamedEntityGraph(name = EntityGraphs.USERS_WITH_AVATAR_AND_GROUPS_AND_POSTS,
+@NamedEntityGraph(name = EntityGraphNamesHelper.USERS_WITH_AVATAR_AND_GROUPS_AND_POSTS,
         attributeNodes = {
                 @NamedAttributeNode(value = "avatar"),
                 @NamedAttributeNode(value = "groups"),
@@ -72,7 +72,7 @@ import static com.github.beljaeff.sjb.util.DateTimeUtils.DATE_TIME_PATTERN;
 /*
  * Set fields for authorizing user
  */
-@NamedEntityGraph(name = EntityGraphs.USERS_WITH_GROUPS_WITH_PERMISSIONS,
+@NamedEntityGraph(name = EntityGraphNamesHelper.USERS_WITH_GROUPS_WITH_PERMISSIONS,
     attributeNodes = {
         @NamedAttributeNode(value = "avatar"),
         @NamedAttributeNode(value = "groups", subgraph = "groupWith.permissions")

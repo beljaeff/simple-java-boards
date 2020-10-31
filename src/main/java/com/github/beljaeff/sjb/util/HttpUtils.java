@@ -6,7 +6,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static com.github.beljaeff.sjb.controller.Routes.ROOT_URL;
+import static com.github.beljaeff.sjb.controller.RoutesHelper.ROOT_URL;
 import static org.springframework.util.StringUtils.isEmpty;
 
 @Slf4j

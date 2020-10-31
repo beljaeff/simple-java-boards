@@ -1,5 +1,5 @@
 function isInt(val) {
-    return !isNaN(val) && parseInt(Number(val)) === val && !isNaN(parseInt(val, 10));
+    return !isNaN(val) && parseInt(Number(val), 10) === val && !isNaN(parseInt(val, 10));
 }
 
 function getMaxAttachments() {
@@ -42,7 +42,7 @@ jQuery(document).ready(function ($) {
     });
 
     $(document).on("change", ".attachment-selector", function () {
-        var num = parseInt(this.id.replace("attachment-selector-", ""));
+        var num = parseInt(this.id.replace("attachment-selector-", ""), 10);
         $("#attachment-info-" + num).html(document.getElementById(this.id).files[0].name);
     });
 });

@@ -1,6 +1,6 @@
 package com.github.beljaeff.sjb.controller.security;
 
-import com.github.beljaeff.sjb.controller.Routes;
+import com.github.beljaeff.sjb.controller.RoutesHelper;
 import com.github.beljaeff.sjb.controller.common.BaseController;
 import com.github.beljaeff.sjb.dto.dto.BreadcrumbDto;
 import com.github.beljaeff.sjb.dto.form.security.SignUpForm;
@@ -12,7 +12,7 @@ import com.github.beljaeff.sjb.model.User;
 import com.github.beljaeff.sjb.service.EmailService;
 import com.github.beljaeff.sjb.service.security.SignUpService;
 import com.github.beljaeff.sjb.util.HttpUtils;
-import com.github.beljaeff.sjb.util.Utils;
+import com.github.beljaeff.sjb.util.CommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -52,7 +52,7 @@ public class SignUpController extends BaseController {
 
     private void setBreadcrumbs(Model model) {
         List<BreadcrumbDto> breadcrumbs = super.getBreadcrumbs();
-        breadcrumbs.add(new BreadcrumbDto(Routes.SIGN_UP, recordService.getText("sign.up.title")));
+        breadcrumbs.add(new BreadcrumbDto(RoutesHelper.SIGN_UP, recordService.getText("sign.up.title")));
         model.addAttribute(ATTR_BREADCRUMBS, breadcrumbs);
     }
 
@@ -63,21 +63,21 @@ public class SignUpController extends BaseController {
         catch (CredentialsNotUniqueException e) {
             // Set "not unique" errors to display inside sign up form
             if(!StringUtils.isEmpty(e.getEmail())) {
-                Utils.addError(bindingResult, ATTR_EMAIL, recordService.getText("sign.up.form.email.not.unique"));
+                CommonUtils.addError(bindingResult, ATTR_EMAIL, recordService.getText("sign.up.form.email.not.unique"));
             }
             if(!StringUtils.isEmpty(e.getNickName())) {
-                Utils.addError(bindingResult, ATTR_NICKNAME, recordService.getText("sign.up.form.nick.name.not.unique"));
+                CommonUtils.addError(bindingResult, ATTR_NICKNAME, recordService.getText("sign.up.form.nick.name.not.unique"));
             }
             return null;
         }
     }
 
-    @GetMapping(Routes.SIGN_UP)
+    @GetMapping(RoutesHelper.SIGN_UP)
     public String entryPoint() {
-        return "redirect:" + Routes.SIGN_UP_REQUEST;
+        return "redirect:" + RoutesHelper.SIGN_UP_REQUEST;
     }
 
-    @GetMapping(Routes.SIGN_UP_REQUEST)
+    @GetMapping(RoutesHelper.SIGN_UP_REQUEST)
     public String displaySignUpForm(Model model, SignUpForm signUpForm) {
         model.addAttribute(ATTR_FORM, signUpForm);
         model.addAttribute(ATTR_GENDER_LIST, Gender.getValues());
@@ -85,7 +85,7 @@ public class SignUpController extends BaseController {
         return SIGN_UP_REQUEST_TPL;
     }
 
-    @PostMapping(Routes.SIGN_UP_REQUEST)
+    @PostMapping(RoutesHelper.SIGN_UP_REQUEST)
     public String handleRequest(@Valid SignUpForm signUpForm,
                                 BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
         // Handle input and create user account
@@ -101,10 +101,10 @@ public class SignUpController extends BaseController {
 
         // PRG pattern
         redirectAttributes.addFlashAttribute(signUpForm);
-        return "redirect:" + Routes.SIGN_UP_REQUEST_SUCCESS;
+        return "redirect:" + RoutesHelper.SIGN_UP_REQUEST_SUCCESS;
     }
 
-    @GetMapping(Routes.SIGN_UP_REQUEST_SUCCESS)
+    @GetMapping(RoutesHelper.SIGN_UP_REQUEST_SUCCESS)
     public String requestSuccess(Model model) {
         SignUpForm form = (SignUpForm) model.asMap().get(ATTR_FORM);
         if(form != null) {
@@ -113,10 +113,10 @@ public class SignUpController extends BaseController {
             setBreadcrumbs(model);
             return SIGN_UP_REQUEST_SUCCESS_TPL;
         }
-        return "redirect:" + Routes.SIGN_UP_REQUEST;
+        return "redirect:" + RoutesHelper.SIGN_UP_REQUEST;
     }
 
-    @GetMapping(Routes.SIGN_UP_ACTIVATE)
+    @GetMapping(RoutesHelper.SIGN_UP_ACTIVATE)
     public String activate(@RequestParam String token, Model model) {
         try {
             if(StringUtils.isEmpty(token)) {

@@ -18,15 +18,15 @@ import com.github.beljaeff.sjb.service.conversation.CategoryService;
 
 import javax.validation.Valid;
 
-import static com.github.beljaeff.sjb.controller.Routes.CATEGORY_ADD;
-import static com.github.beljaeff.sjb.controller.Routes.CATEGORY_CHANGE_ACTIVE;
-import static com.github.beljaeff.sjb.controller.Routes.CATEGORY_DELETE;
-import static com.github.beljaeff.sjb.controller.Routes.CATEGORY_DOWN;
-import static com.github.beljaeff.sjb.controller.Routes.CATEGORY_EDIT;
-import static com.github.beljaeff.sjb.controller.Routes.CATEGORY_SAVE;
-import static com.github.beljaeff.sjb.controller.Routes.CATEGORY_UP;
-import static com.github.beljaeff.sjb.controller.Routes.CATEGORY_VIEW;
-import static com.github.beljaeff.sjb.controller.Routes.ROOT_URL;
+import static com.github.beljaeff.sjb.controller.RoutesHelper.CATEGORY_ADD;
+import static com.github.beljaeff.sjb.controller.RoutesHelper.CATEGORY_CHANGE_ACTIVE;
+import static com.github.beljaeff.sjb.controller.RoutesHelper.CATEGORY_DELETE;
+import static com.github.beljaeff.sjb.controller.RoutesHelper.CATEGORY_DOWN;
+import static com.github.beljaeff.sjb.controller.RoutesHelper.CATEGORY_EDIT;
+import static com.github.beljaeff.sjb.controller.RoutesHelper.CATEGORY_SAVE;
+import static com.github.beljaeff.sjb.controller.RoutesHelper.CATEGORY_UP;
+import static com.github.beljaeff.sjb.controller.RoutesHelper.CATEGORY_VIEW;
+import static com.github.beljaeff.sjb.controller.RoutesHelper.ROOT_URL;
 
 @Controller
 public class CategoryController extends AbstractController {

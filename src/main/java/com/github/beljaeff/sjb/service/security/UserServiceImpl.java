@@ -26,7 +26,7 @@ import com.github.beljaeff.sjb.dto.form.profile.AddUserGroupForm;
 import com.github.beljaeff.sjb.enums.BaseGroups;
 import com.github.beljaeff.sjb.mapper.UserMapper;
 import com.github.beljaeff.sjb.model.Attachment;
-import com.github.beljaeff.sjb.model.EntityGraphs;
+import com.github.beljaeff.sjb.model.EntityGraphNamesHelper;
 import com.github.beljaeff.sjb.model.Group;
 import com.github.beljaeff.sjb.model.PagedEntityList;
 import com.github.beljaeff.sjb.model.User;
@@ -38,7 +38,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static com.github.beljaeff.sjb.controller.Routes.PROFILE_LIST;
+import static com.github.beljaeff.sjb.controller.RoutesHelper.PROFILE_LIST;
 import static com.github.beljaeff.sjb.enums.BasePermission.ACTIVATE_USER;
 import static com.github.beljaeff.sjb.enums.BasePermission.ADMIN;
 import static com.github.beljaeff.sjb.enums.ErrorCode.GROUP_DUPLICATE;
@@ -89,12 +89,12 @@ public class UserServiceImpl extends AbstractCrudService<User> implements UserDe
 
     @Override
     public User get(int id) {
-        return get(id, EntityGraphs.USERS_WITH_AVATAR);
+        return get(id, EntityGraphNamesHelper.USERS_WITH_AVATAR);
     }
 
     @Override
     public User getWithGroups(int id) {
-        return get(id, EntityGraphs.USERS_WITH_AVATAR_AND_GROUPS);
+        return get(id, EntityGraphNamesHelper.USERS_WITH_AVATAR_AND_GROUPS);
     }
 
     @Override
@@ -111,7 +111,7 @@ public class UserServiceImpl extends AbstractCrudService<User> implements UserDe
                 .isActivated(true)
                 .isActive(true)
                 .build();
-        User user = userRepository.getUserByCondition(condition, EntityGraphs.USERS_WITH_GROUPS_WITH_PERMISSIONS);
+        User user = userRepository.getUserByCondition(condition, EntityGraphNamesHelper.USERS_WITH_GROUPS_WITH_PERMISSIONS);
         if(user == null || user.getId() == ANONYMOUS_ID) {
             log.debug("Can not perform authorization for login '{}'. User not found or Anonymous.", login);
             throw new UsernameNotFoundException("User " + login + " is not found");
@@ -121,7 +121,7 @@ public class UserServiceImpl extends AbstractCrudService<User> implements UserDe
 
     @Override
     public UserPrincipal getAnonymousUser() {
-        User user = userRepository.get(ANONYMOUS_ID, EntityGraphs.USERS_WITH_GROUPS_WITH_PERMISSIONS);
+        User user = userRepository.get(ANONYMOUS_ID, EntityGraphNamesHelper.USERS_WITH_GROUPS_WITH_PERMISSIONS);
         if(user == null) {
             log.debug("Can not perform authorization for Anonymous user");
             throw new UsernameNotFoundException("Anonymous user is not found");
@@ -156,7 +156,7 @@ public class UserServiceImpl extends AbstractCrudService<User> implements UserDe
             condition.setShowAnonymous(true);
         }
 
-        PagedEntityList<User> users = userRepository.getPageableList(condition, page, EntityGraphs.USERS_WITH_AVATAR);
+        PagedEntityList<User> users = userRepository.getPageableList(condition, page, EntityGraphNamesHelper.USERS_WITH_AVATAR);
         if(page < 1 || page > users.getTotalPages()) {
             log.debug("Requested user page does not exist");
             throw new NotFoundException();
@@ -231,7 +231,7 @@ public class UserServiceImpl extends AbstractCrudService<User> implements UserDe
     @Override
     @Transactional
     public ActionStatusDto<User> removeUserGroup(int idUser, int idGroup) {
-        User user = get(idUser, EntityGraphs.USERS_WITH_AVATAR_AND_GROUPS);
+        User user = get(idUser, EntityGraphNamesHelper.USERS_WITH_AVATAR_AND_GROUPS);
         Group group = groupService.get(idGroup);
         ActionStatusDto<User> actionStatus = new ActionStatusDto<>();
         actionStatus.setEntity(user);

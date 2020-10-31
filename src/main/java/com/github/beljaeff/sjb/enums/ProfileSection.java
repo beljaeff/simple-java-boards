@@ -6,16 +6,16 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum ProfileSection {
-    OVERVIEW   (Constants.OVERVIEW),
-    SECURITY   (Constants.SECURITY),
-    GROUPS     (Constants.GROUPS),
-    POSTS      (Constants.POSTS),
-    TOPICS     (Constants.TOPICS),
-    STATISTICS (Constants.STATISTICS);
+    OVERVIEW   (ConstantsHelper.OVERVIEW),
+    SECURITY   (ConstantsHelper.SECURITY),
+    GROUPS     (ConstantsHelper.GROUPS),
+    POSTS      (ConstantsHelper.POSTS),
+    TOPICS     (ConstantsHelper.TOPICS),
+    STATISTICS (ConstantsHelper.STATISTICS);
 
-    private String code;
+    private final String code;
 
-    public static class Constants {
+    public static class ConstantsHelper {
         public static final String OVERVIEW   = "overview";
         public static final String SECURITY   = "security";
         public static final String GROUPS     = "groups";

@@ -4,7 +4,7 @@ import com.github.beljaeff.sjb.dto.dto.attachment.AttachmentPathsDto;
 import com.github.beljaeff.sjb.enums.AttachmentType;
 import com.github.beljaeff.sjb.exception.AttachmentException;
 import com.github.beljaeff.sjb.model.Attachment;
-import com.github.beljaeff.sjb.util.Utils;
+import com.github.beljaeff.sjb.util.CommonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -161,7 +161,7 @@ class FileAttachmentServiceImpl implements FileAttachmentService {
             return null;
         }
 
-        if(Utils.isImage(attachment.getContentType())) {
+        if(CommonUtils.isImage(attachment.getContentType())) {
             thumbnailsService.createThumbnails(directoryPath.toString(), attachment);
         }
 
@@ -212,7 +212,7 @@ class FileAttachmentServiceImpl implements FileAttachmentService {
         AttachmentPathsDto ret = new AttachmentPathsDto();
         ret.setFilePath(filePath);
         ret.setFileUrl(url);
-        if(Utils.isImage(attachment.getContentType())) {
+        if(CommonUtils.isImage(attachment.getContentType())) {
             AttachmentPathsDto prefixes = thumbnailsService.getPreviewPrefixesByAttachment(attachment);
             if(prefixes.getImagePath() != null) {
                 ret.setImagePath(Paths.get(directoryPath.toString(), prefixes.getImagePath() + attachment.getFileName()).toString());

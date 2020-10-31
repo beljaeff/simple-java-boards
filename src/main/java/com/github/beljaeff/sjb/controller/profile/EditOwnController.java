@@ -25,27 +25,27 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import com.github.beljaeff.sjb.dto.dto.BreadcrumbDto;
-import com.github.beljaeff.sjb.util.Utils;
+import com.github.beljaeff.sjb.util.CommonUtils;
 
 import javax.validation.Valid;
 import java.util.List;
 
-import static com.github.beljaeff.sjb.controller.Routes.PROFILE_LIST;
-import static com.github.beljaeff.sjb.controller.Routes.USER_PROFILE_CHANGE_EMAIL;
-import static com.github.beljaeff.sjb.controller.Routes.USER_PROFILE_CHANGE_PASSWORD;
-import static com.github.beljaeff.sjb.controller.Routes.USER_PROFILE_CHANGE_SECRET_ANSWER;
-import static com.github.beljaeff.sjb.controller.Routes.USER_PROFILE_COMMON;
-import static com.github.beljaeff.sjb.controller.Routes.USER_PROFILE_EDIT_AVATAR;
-import static com.github.beljaeff.sjb.controller.Routes.USER_PROFILE_EDIT_OVERVIEW;
-import static com.github.beljaeff.sjb.controller.Routes.USER_PROFILE_OVERVIEW;
-import static com.github.beljaeff.sjb.controller.Routes.USER_PROFILE_REMOVE_AVATAR;
-import static com.github.beljaeff.sjb.controller.Routes.USER_PROFILE_SAVE_AVATAR;
-import static com.github.beljaeff.sjb.controller.Routes.USER_PROFILE_SAVE_EMAIL;
-import static com.github.beljaeff.sjb.controller.Routes.USER_PROFILE_SAVE_OVERVIEW;
-import static com.github.beljaeff.sjb.controller.Routes.USER_PROFILE_SAVE_PASSWORD;
-import static com.github.beljaeff.sjb.controller.Routes.USER_PROFILE_SAVE_SECRET_ANSWER;
-import static com.github.beljaeff.sjb.controller.Routes.USER_PROFILE_SECURITY;
-import static com.github.beljaeff.sjb.util.Utils.addErrors;
+import static com.github.beljaeff.sjb.controller.RoutesHelper.PROFILE_LIST;
+import static com.github.beljaeff.sjb.controller.RoutesHelper.USER_PROFILE_CHANGE_EMAIL;
+import static com.github.beljaeff.sjb.controller.RoutesHelper.USER_PROFILE_CHANGE_PASSWORD;
+import static com.github.beljaeff.sjb.controller.RoutesHelper.USER_PROFILE_CHANGE_SECRET_ANSWER;
+import static com.github.beljaeff.sjb.controller.RoutesHelper.USER_PROFILE_COMMON;
+import static com.github.beljaeff.sjb.controller.RoutesHelper.USER_PROFILE_EDIT_AVATAR;
+import static com.github.beljaeff.sjb.controller.RoutesHelper.USER_PROFILE_EDIT_OVERVIEW;
+import static com.github.beljaeff.sjb.controller.RoutesHelper.USER_PROFILE_OVERVIEW;
+import static com.github.beljaeff.sjb.controller.RoutesHelper.USER_PROFILE_REMOVE_AVATAR;
+import static com.github.beljaeff.sjb.controller.RoutesHelper.USER_PROFILE_SAVE_AVATAR;
+import static com.github.beljaeff.sjb.controller.RoutesHelper.USER_PROFILE_SAVE_EMAIL;
+import static com.github.beljaeff.sjb.controller.RoutesHelper.USER_PROFILE_SAVE_OVERVIEW;
+import static com.github.beljaeff.sjb.controller.RoutesHelper.USER_PROFILE_SAVE_PASSWORD;
+import static com.github.beljaeff.sjb.controller.RoutesHelper.USER_PROFILE_SAVE_SECRET_ANSWER;
+import static com.github.beljaeff.sjb.controller.RoutesHelper.USER_PROFILE_SECURITY;
+import static com.github.beljaeff.sjb.util.CommonUtils.addErrors;
 
 @Slf4j
 @PreAuthorize("hasPermission('EDIT_OWN_PROFILE')")
@@ -229,7 +229,7 @@ public class EditOwnController extends AbstractShowController {
         }
         model.addAttribute(ATTR_EDIT_OVERVIEW_FORM, form);
         model.addAttribute(ATTR_GENDER_LIST, Gender.getValues());
-        model.addAttribute(ATTR_ACTIVE_LIST, Utils.getActiveValues(recordService));
+        model.addAttribute(ATTR_ACTIVE_LIST, CommonUtils.getActiveValues(recordService));
         model.addAttribute(ATTR_ACTION, "edit");
         return showProfile(
                 showProfileService.getOverview(id),

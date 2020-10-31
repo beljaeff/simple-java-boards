@@ -31,7 +31,7 @@ import java.util.Set;
 /*
  * Set fields for displaying categorized boards list
  */
-@NamedEntityGraph(name = EntityGraphs.BOARDS_WITH_LAST_TOPIC,
+@NamedEntityGraph(name = EntityGraphNamesHelper.BOARDS_WITH_LAST_TOPIC,
     attributeNodes = @NamedAttributeNode(value = "lastTopic", subgraph = "topicsWith.author"),
     subgraphs = {
         @NamedSubgraph(
@@ -48,7 +48,7 @@ import java.util.Set;
 /*
  * Set fields for selecting one board with child boards
  */
-@NamedEntityGraph(name = EntityGraphs.BOARD_WITH_CHILD_BOARDS,
+@NamedEntityGraph(name = EntityGraphNamesHelper.BOARD_WITH_CHILD_BOARDS,
     attributeNodes = @NamedAttributeNode(value = "childBoards", subgraph = "boardsWith.lastTopic"),
     subgraphs = {
         @NamedSubgraph(

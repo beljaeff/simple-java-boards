@@ -1,6 +1,6 @@
 package com.github.beljaeff.sjb.repository;
 
-import com.github.beljaeff.sjb.model.EntityGraphs;
+import com.github.beljaeff.sjb.model.EntityGraphNamesHelper;
 import com.github.beljaeff.sjb.model.User;
 import com.github.beljaeff.sjb.repository.condition.UserCondition;
 import com.github.beljaeff.sjb.repository.jpa.UserRepositoryJpa;
@@ -43,7 +43,7 @@ public class UserRepositoryTest extends AbstractPageableRepositoryTest<User, Use
 
     @Override
     protected String getEntityGraph() {
-        return EntityGraphs.USERS_WITH_AVATAR;
+        return EntityGraphNamesHelper.USERS_WITH_AVATAR;
     }
 
     @Test

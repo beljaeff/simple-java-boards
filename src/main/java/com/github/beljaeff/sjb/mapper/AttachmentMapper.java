@@ -14,7 +14,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import static com.github.beljaeff.sjb.util.Utils.isImage;
+import static com.github.beljaeff.sjb.util.CommonUtils.isImage;
 
 @Component
 public class AttachmentMapper extends AbstractMapper {

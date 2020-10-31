@@ -23,16 +23,16 @@ import com.github.beljaeff.sjb.dto.dto.BreadcrumbDto;
 import javax.validation.Valid;
 import java.util.List;
 
-import static com.github.beljaeff.sjb.controller.Routes.PROFILE_LIST;
-import static com.github.beljaeff.sjb.controller.Routes.USER_ACTIVATE;
-import static com.github.beljaeff.sjb.controller.Routes.USER_BAN;
-import static com.github.beljaeff.sjb.controller.Routes.USER_DELETE;
-import static com.github.beljaeff.sjb.controller.Routes.USER_PROFILE_ADD_GROUP;
-import static com.github.beljaeff.sjb.controller.Routes.USER_PROFILE_COMMON;
-import static com.github.beljaeff.sjb.controller.Routes.USER_PROFILE_GROUPS;
-import static com.github.beljaeff.sjb.controller.Routes.USER_PROFILE_REMOVE_GROUP;
-import static com.github.beljaeff.sjb.controller.Routes.USER_PROFILE_SAVE_GROUP;
-import static com.github.beljaeff.sjb.util.Utils.addErrors;
+import static com.github.beljaeff.sjb.controller.RoutesHelper.PROFILE_LIST;
+import static com.github.beljaeff.sjb.controller.RoutesHelper.USER_ACTIVATE;
+import static com.github.beljaeff.sjb.controller.RoutesHelper.USER_BAN;
+import static com.github.beljaeff.sjb.controller.RoutesHelper.USER_DELETE;
+import static com.github.beljaeff.sjb.controller.RoutesHelper.USER_PROFILE_ADD_GROUP;
+import static com.github.beljaeff.sjb.controller.RoutesHelper.USER_PROFILE_COMMON;
+import static com.github.beljaeff.sjb.controller.RoutesHelper.USER_PROFILE_GROUPS;
+import static com.github.beljaeff.sjb.controller.RoutesHelper.USER_PROFILE_REMOVE_GROUP;
+import static com.github.beljaeff.sjb.controller.RoutesHelper.USER_PROFILE_SAVE_GROUP;
+import static com.github.beljaeff.sjb.util.CommonUtils.addErrors;
 
 @Slf4j
 @Controller

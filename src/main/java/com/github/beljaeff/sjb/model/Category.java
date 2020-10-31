@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * Set fields for displaying categorized boards list
  */
-@NamedEntityGraph(name = EntityGraphs.CATEGORIES_WITH_BOARDS,
+@NamedEntityGraph(name = EntityGraphNamesHelper.CATEGORIES_WITH_BOARDS,
     attributeNodes = @NamedAttributeNode(value = "boards", subgraph = "boardsWith.lastTopic"),
     subgraphs = {
         @NamedSubgraph(

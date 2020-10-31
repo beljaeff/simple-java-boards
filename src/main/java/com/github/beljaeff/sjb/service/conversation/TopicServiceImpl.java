@@ -15,7 +15,7 @@ import com.github.beljaeff.sjb.mapper.PostMapper;
 import com.github.beljaeff.sjb.mapper.TopicMapper;
 import com.github.beljaeff.sjb.model.Attachment;
 import com.github.beljaeff.sjb.model.Board;
-import com.github.beljaeff.sjb.model.EntityGraphs;
+import com.github.beljaeff.sjb.model.EntityGraphNamesHelper;
 import com.github.beljaeff.sjb.model.PagedEntityList;
 import com.github.beljaeff.sjb.model.Topic;
 import com.github.beljaeff.sjb.model.User;
@@ -110,7 +110,7 @@ public class TopicServiceImpl extends AbstractHasAttachmentsService<Topic> imple
             condition.setIsApproved(true);
         }
 
-        PagedEntityList<Post> posts = postRepository.getPageableList(condition, postPage, EntityGraphs.POST_EXCEPT_TOPIC_AND_CHILD_POSTS);
+        PagedEntityList<Post> posts = postRepository.getPageableList(condition, postPage, EntityGraphNamesHelper.POST_EXCEPT_TOPIC_AND_CHILD_POSTS);
         if(postPage < 1 || postPage > posts.getTotalPages()) {
             log.error("Requested post page does not exist");
             throw new NotFoundException();
@@ -124,7 +124,7 @@ public class TopicServiceImpl extends AbstractHasAttachmentsService<Topic> imple
     @Override
     @Transactional(readOnly = true)
     public Topic get(int id) {
-        Topic topic = topicRepository.get(id, EntityGraphs.TOPIC_WITH_BOARD_AND_AUTHOR);
+        Topic topic = topicRepository.get(id, EntityGraphNamesHelper.TOPIC_WITH_BOARD_AND_AUTHOR);
         boolean isActive = topic != null && topicRepository.isEntityActive(id, true);
         //TODO check access to restricted board (private access)
         if(topic == null ||

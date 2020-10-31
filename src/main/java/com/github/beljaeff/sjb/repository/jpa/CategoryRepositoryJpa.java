@@ -22,7 +22,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
-import static com.github.beljaeff.sjb.model.EntityGraphs.HINT_FETCH;
+import static com.github.beljaeff.sjb.model.EntityGraphNamesHelper.HINT_FETCH;
 
 @Repository
 public class CategoryRepositoryJpa extends AbstractBaseRepository<Category, CategoryCondition> implements CategoryRepository {

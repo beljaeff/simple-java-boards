@@ -1,11 +1,11 @@
 package com.github.beljaeff.sjb.controller.conversation;
 
-import com.github.beljaeff.sjb.controller.Routes;
+import com.github.beljaeff.sjb.controller.RoutesHelper;
 import com.github.beljaeff.sjb.controller.common.BaseController;
 import com.github.beljaeff.sjb.dto.dto.page.FormPageDto;
 import com.github.beljaeff.sjb.exception.NotFoundException;
 import com.github.beljaeff.sjb.exception.PersistenceException;
-import com.github.beljaeff.sjb.util.Utils;
+import com.github.beljaeff.sjb.util.CommonUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ui.Model;
@@ -25,7 +25,7 @@ abstract public class AbstractController extends BaseController {
         setFormUrls(page.getForm());
         model.addAttribute(ATTR_PAGE, page);
         model.addAttribute(ATTR_FORM, page.getForm());
-        model.addAttribute(ATTR_ACTIVE_LIST, Utils.getActiveValues(recordService));
+        model.addAttribute(ATTR_ACTIVE_LIST, CommonUtils.getActiveValues(recordService));
     }
 
     abstract protected void setFormUrls(BaseForm form);
@@ -39,7 +39,7 @@ abstract public class AbstractController extends BaseController {
             catch (PersistenceException | NotFoundException e) {
                 log.warn("Entity {} not saved", form);
                 log.warn(e.getMessage(), e);
-                Utils.addErrors(bindingResult, recordService, e.getErrors());
+                CommonUtils.addErrors(bindingResult, recordService, e.getErrors());
             }
         }
 
@@ -61,7 +61,7 @@ abstract public class AbstractController extends BaseController {
         if(form != null && form.getFinishUrl() != null) {
             return "redirect:" + form.getFinishUrl();
         }
-        return "redirect:" + Routes.ROOT_URL;
+        return "redirect:" + RoutesHelper.ROOT_URL;
     }
 
     @SuppressWarnings("unchecked")

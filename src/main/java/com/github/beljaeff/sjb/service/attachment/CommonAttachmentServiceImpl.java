@@ -10,7 +10,7 @@ import com.github.beljaeff.sjb.model.Board;
 import com.github.beljaeff.sjb.model.Category;
 import com.github.beljaeff.sjb.model.Post;
 import com.github.beljaeff.sjb.model.Topic;
-import com.github.beljaeff.sjb.util.Utils;
+import com.github.beljaeff.sjb.util.CommonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -58,7 +58,7 @@ public class CommonAttachmentServiceImpl implements CommonAttachmentService {
 
     @Override
     public List<Attachment> createPostAttachments(MultipartFile[] files) {
-        if(Utils.isAttachmentsEmpty(files)) {
+        if(CommonUtils.isAttachmentsEmpty(files)) {
             return Collections.emptyList();
         }
         return fileAttachmentService.createAttachments(files, AttachmentType.POST);
@@ -68,7 +68,7 @@ public class CommonAttachmentServiceImpl implements CommonAttachmentService {
     public List<Attachment> mergePostAttachments(final MultipartFile[] uploads, final List<Attachment> existed) {
         List<Attachment> attachments = existed == null ? new ArrayList<>() : existed;
 
-        if(!Utils.isAttachmentsEmpty(uploads)) {
+        if(!CommonUtils.isAttachmentsEmpty(uploads)) {
             // Checks uploaded attachments - total attachments count for post have to be less than maxAttachments constraint.
             // It means that if maxAttachments == 5, post already have 3 attachments, so max 2 uploads can be added to this post.
             // After that remove attachments.

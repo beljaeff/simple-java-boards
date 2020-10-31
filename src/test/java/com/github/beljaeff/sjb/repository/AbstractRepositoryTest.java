@@ -1,7 +1,7 @@
 package com.github.beljaeff.sjb.repository;
 
 import com.github.beljaeff.sjb.model.Board;
-import com.github.beljaeff.sjb.model.EntityGraphs;
+import com.github.beljaeff.sjb.model.EntityGraphNamesHelper;
 import com.github.beljaeff.sjb.model.common.IdentifiedActiveEntity;
 import com.github.beljaeff.sjb.repository.condition.Condition;
 import org.junit.jupiter.api.Test;
@@ -143,7 +143,7 @@ public abstract class AbstractRepositoryTest<T extends IdentifiedActiveEntity, S
         int id = 1;
         String entityGraphName = "entityGraphName";
         Map<String, Object> hints = new HashMap<>();
-        hints.put(EntityGraphs.HINT_FETCH, null);
+        hints.put(EntityGraphNamesHelper.HINT_FETCH, null);
 
         mockRepository.get(id, entityGraphName);
         verify(mockEntityManager, times(1)).getEntityGraph(entityGraphName);

@@ -1,6 +1,6 @@
 package com.github.beljaeff.sjb.controller.conversation;
 
-import com.github.beljaeff.sjb.controller.Routes;
+import com.github.beljaeff.sjb.controller.RoutesHelper;
 import com.github.beljaeff.sjb.controller.common.BaseController;
 import com.github.beljaeff.sjb.dto.dto.ActionStatusDto;
 import com.github.beljaeff.sjb.dto.dto.BaseDto;
@@ -37,14 +37,14 @@ public class BoardController extends AbstractController {
     }
 
     @PreAuthorize("hasAnyPermissions('VIEW', 'ADMIN')")
-    @GetMapping(Routes.BOARD_VIEW)
+    @GetMapping(RoutesHelper.BOARD_VIEW)
     public String get(@PathVariable int id, @RequestParam(defaultValue = "1") int page, Model model) {
         model.addAttribute(BaseController.ATTR_PAGE, boardService.getBoard(id, page));
         return BOARD_VIEW_TPL;
     }
 
     @PreAuthorize("hasAnyPermissions('EDIT_BOARD', 'ADMIN')")
-    @GetMapping(Routes.BOARD_EDIT)
+    @GetMapping(RoutesHelper.BOARD_EDIT)
     public String edit(@PathVariable int id, Model model) {
         BoardForm form = getFormFromModel(model, BoardForm::new);
         FormPageDto<? extends BaseDto, BoardForm> page = boardService.getEditForm(id, form);
@@ -53,7 +53,7 @@ public class BoardController extends AbstractController {
     }
 
     @PreAuthorize("hasAnyPermissions('EDIT_BOARD', 'ADMIN')")
-    @GetMapping(Routes.BOARD_ADD_FROM_PARENT)
+    @GetMapping(RoutesHelper.BOARD_ADD_FROM_PARENT)
     public String addFromBoard(@PathVariable int id, Model model) {
         BoardForm form = getFormFromModel(model, BoardForm::new);
         form.setParentBoard(id);
@@ -63,7 +63,7 @@ public class BoardController extends AbstractController {
     }
 
     @PreAuthorize("hasPermission('EDIT_CATEGORY') && hasPermission('EDIT_BOARD') || hasPermission('ADMIN')")
-    @GetMapping(Routes.BOARD_ADD_FROM_CATEGORY)
+    @GetMapping(RoutesHelper.BOARD_ADD_FROM_CATEGORY)
     public String addFromCategory(@PathVariable int id, Model model) {
         BoardForm form = getFormFromModel(model, BoardForm::new);
         form.setCategory(id);
@@ -73,7 +73,7 @@ public class BoardController extends AbstractController {
     }
 
     @PreAuthorize("hasPermission('EDIT_CATEGORY') && hasPermission('EDIT_BOARD') || hasPermission('ADMIN')")
-    @GetMapping(Routes.BOARD_ADD_FROM_INDEX)
+    @GetMapping(RoutesHelper.BOARD_ADD_FROM_INDEX)
     public String addFromIndex(Model model) {
         BoardForm form = getFormFromModel(model, BoardForm::new);
         FormPageDto<? extends BaseDto, BoardForm> page = boardService.getAddForm(form);
@@ -82,7 +82,7 @@ public class BoardController extends AbstractController {
     }
 
     @PreAuthorize("hasAnyPermissions('EDIT_BOARD', 'ADMIN')")
-    @PostMapping(Routes.BOARD_SAVE)
+    @PostMapping(RoutesHelper.BOARD_SAVE)
     public String save(@ModelAttribute(BaseController.ATTR_FORM) @Valid BoardForm form, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         return saveForm(form, bindingResult, redirectAttributes, form.getId() == 0 ? boardService::create : boardService::edit);
     }
@@ -91,78 +91,78 @@ public class BoardController extends AbstractController {
         BoardForm form = (BoardForm) baseform;
         // Edit board
         if(form.getId() > 0) {
-            form.setFormUrl(buildSegmentsPath(Routes.BOARD_EDIT, form.getId()));
-            form.setSaveUrl(Routes.BOARD_SAVE);
-            form.setCancelUrl(buildSegmentsPath(Routes.BOARD_VIEW, form.getId()));
-            form.setFinishUrl(buildSegmentsPath(Routes.BOARD_VIEW, form.getId()));
+            form.setFormUrl(buildSegmentsPath(RoutesHelper.BOARD_EDIT, form.getId()));
+            form.setSaveUrl(RoutesHelper.BOARD_SAVE);
+            form.setCancelUrl(buildSegmentsPath(RoutesHelper.BOARD_VIEW, form.getId()));
+            form.setFinishUrl(buildSegmentsPath(RoutesHelper.BOARD_VIEW, form.getId()));
         }
         // Add from index
         else if(form.getParentBoard() == null && form.getCategory() == null) {
-            form.setFormUrl(Routes.BOARD_ADD_FROM_INDEX);
-            form.setSaveUrl(Routes.BOARD_SAVE);
-            form.setCancelUrl(Routes.ROOT_URL);
-            form.setFinishUrl(Routes.ROOT_URL);
+            form.setFormUrl(RoutesHelper.BOARD_ADD_FROM_INDEX);
+            form.setSaveUrl(RoutesHelper.BOARD_SAVE);
+            form.setCancelUrl(RoutesHelper.ROOT_URL);
+            form.setFinishUrl(RoutesHelper.ROOT_URL);
         }
         // Add from category
         else if(form.getParentBoard() == null && form.getCategory() != null) {
-            form.setFormUrl(buildSegmentsPath(Routes.BOARD_ADD_FROM_CATEGORY, form.getCategory()));
-            form.setSaveUrl(Routes.BOARD_SAVE);
-            form.setCancelUrl(buildSegmentsPath(Routes.CATEGORY_VIEW, form.getCategory()));
-            form.setFinishUrl(buildSegmentsPath(Routes.CATEGORY_VIEW, form.getCategory()));
+            form.setFormUrl(buildSegmentsPath(RoutesHelper.BOARD_ADD_FROM_CATEGORY, form.getCategory()));
+            form.setSaveUrl(RoutesHelper.BOARD_SAVE);
+            form.setCancelUrl(buildSegmentsPath(RoutesHelper.CATEGORY_VIEW, form.getCategory()));
+            form.setFinishUrl(buildSegmentsPath(RoutesHelper.CATEGORY_VIEW, form.getCategory()));
         }
         // Add from board
         else if(form.getParentBoard() != null && form.getCategory() == null) {
-            form.setFormUrl(buildSegmentsPath(Routes.BOARD_ADD_FROM_PARENT, form.getParentBoard()));
-            form.setSaveUrl(Routes.BOARD_SAVE);
-            form.setCancelUrl(buildSegmentsPath(Routes.BOARD_VIEW, form.getParentBoard()));
-            form.setFinishUrl(buildSegmentsPath(Routes.BOARD_VIEW, form.getParentBoard()));
+            form.setFormUrl(buildSegmentsPath(RoutesHelper.BOARD_ADD_FROM_PARENT, form.getParentBoard()));
+            form.setSaveUrl(RoutesHelper.BOARD_SAVE);
+            form.setCancelUrl(buildSegmentsPath(RoutesHelper.BOARD_VIEW, form.getParentBoard()));
+            form.setFinishUrl(buildSegmentsPath(RoutesHelper.BOARD_VIEW, form.getParentBoard()));
         }
     }
 
     @Override
     @PreAuthorize("hasAnyPermissions('EDIT_BOARD', 'ADMIN')")
-    @GetMapping(Routes.BOARD_SAVE)
+    @GetMapping(RoutesHelper.BOARD_SAVE)
     public String redirect(Model model) {
         return super.redirect(model);
     }
 
     @PreAuthorize("hasAnyPermissions('DELETE_BOARD', 'ADMIN')")
-    @GetMapping(Routes.BOARD_DELETE)
+    @GetMapping(RoutesHelper.BOARD_DELETE)
     public String delete(@PathVariable int id) {
         return "redirect:" + getLinkForRedirect(boardService.delete(id));
     }
 
     @PreAuthorize("hasAnyPermissions('EDIT_BOARD', 'ACTIVATE_BOARD', 'ADMIN')")
-    @GetMapping(Routes.BOARD_CHANGE_ACTIVE)
+    @GetMapping(RoutesHelper.BOARD_CHANGE_ACTIVE)
     public String changeActive(@PathVariable int id) {
         return "redirect:" + getLinkForRedirect(boardService.changeActive(id));
     }
 
     @PreAuthorize("hasAnyPermissions('EDIT_BOARD', 'ADMIN')")
-    @GetMapping(Routes.BOARD_UP)
+    @GetMapping(RoutesHelper.BOARD_UP)
     public String up(@PathVariable int id) {
         return "redirect:" + getLinkForRedirect(boardService.up(id));
     }
 
     @PreAuthorize("hasAnyPermissions('EDIT_BOARD', 'ADMIN')")
-    @GetMapping(Routes.BOARD_DOWN)
+    @GetMapping(RoutesHelper.BOARD_DOWN)
     public String down(@PathVariable int id) {
         return "redirect:" + getLinkForRedirect(boardService.down(id));
     }
 
     private String getLinkForRedirect(ActionStatusDto<Board> actionStatus) {
         if(actionStatus == null) {
-            return Routes.ROOT_URL;
+            return RoutesHelper.ROOT_URL;
         }
         Board board = actionStatus.getEntity();
         if(board != null && board.getCategory() != null) {
-            return buildSegmentsPath(Routes.CATEGORY_VIEW, board.getCategory().getId());
+            return buildSegmentsPath(RoutesHelper.CATEGORY_VIEW, board.getCategory().getId());
         }
         else if(board != null && board.getParentBoard() != null) {
-            return buildSegmentsPath(Routes.BOARD_VIEW, board.getParentBoard().getId());
+            return buildSegmentsPath(RoutesHelper.BOARD_VIEW, board.getParentBoard().getId());
         }
         else {
-            return Routes.ROOT_URL;
+            return RoutesHelper.ROOT_URL;
         }
     }
 }

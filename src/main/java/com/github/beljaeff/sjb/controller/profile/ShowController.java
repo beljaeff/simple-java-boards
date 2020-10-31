@@ -15,10 +15,10 @@ import com.github.beljaeff.sjb.dto.dto.BreadcrumbDto;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-import static com.github.beljaeff.sjb.controller.Routes.PROFILE_LIST;
-import static com.github.beljaeff.sjb.controller.Routes.USER_PROFILE;
-import static com.github.beljaeff.sjb.controller.Routes.USER_PROFILE_COMMON;
-import static com.github.beljaeff.sjb.controller.Routes.USER_PROFILE_OVERVIEW;
+import static com.github.beljaeff.sjb.controller.RoutesHelper.PROFILE_LIST;
+import static com.github.beljaeff.sjb.controller.RoutesHelper.USER_PROFILE;
+import static com.github.beljaeff.sjb.controller.RoutesHelper.USER_PROFILE_COMMON;
+import static com.github.beljaeff.sjb.controller.RoutesHelper.USER_PROFILE_OVERVIEW;
 
 @Controller
 @PreAuthorize("(hasPermission('VIEW_PROFILE') && hasPermission('VIEW')) || hasPermission('ADMIN')")

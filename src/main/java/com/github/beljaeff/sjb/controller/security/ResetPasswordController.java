@@ -26,15 +26,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.util.StringUtils.isEmpty;
-import static com.github.beljaeff.sjb.controller.Routes.RESET_PASSWORD;
-import static com.github.beljaeff.sjb.controller.Routes.RESET_PASSWORD_ERROR;
-import static com.github.beljaeff.sjb.controller.Routes.RESET_PASSWORD_QUESTION;
-import static com.github.beljaeff.sjb.controller.Routes.RESET_PASSWORD_REQUEST;
-import static com.github.beljaeff.sjb.controller.Routes.RESET_PASSWORD_REQUEST_SUCCESS;
-import static com.github.beljaeff.sjb.controller.Routes.RESET_PASSWORD_RESET;
-import static com.github.beljaeff.sjb.controller.Routes.RESET_PASSWORD_RESET_SUCCESS;
+import static com.github.beljaeff.sjb.controller.RoutesHelper.RESET_PASSWORD;
+import static com.github.beljaeff.sjb.controller.RoutesHelper.RESET_PASSWORD_ERROR;
+import static com.github.beljaeff.sjb.controller.RoutesHelper.RESET_PASSWORD_QUESTION;
+import static com.github.beljaeff.sjb.controller.RoutesHelper.RESET_PASSWORD_REQUEST;
+import static com.github.beljaeff.sjb.controller.RoutesHelper.RESET_PASSWORD_REQUEST_SUCCESS;
+import static com.github.beljaeff.sjb.controller.RoutesHelper.RESET_PASSWORD_RESET;
+import static com.github.beljaeff.sjb.controller.RoutesHelper.RESET_PASSWORD_RESET_SUCCESS;
 import static com.github.beljaeff.sjb.util.HttpUtils.getBasePath;
-import static com.github.beljaeff.sjb.util.Utils.addError;
+import static com.github.beljaeff.sjb.util.CommonUtils.addError;
 
 @PreAuthorize("isAnonymous()")
 @Controller

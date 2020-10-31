@@ -32,9 +32,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static com.github.beljaeff.sjb.model.EntityGraphs.HINT_FETCH;
-import static com.github.beljaeff.sjb.util.Utils.mapAttachmentsByPostId;
-import static com.github.beljaeff.sjb.util.Utils.mapGroupsByUserId;
+import static com.github.beljaeff.sjb.model.EntityGraphNamesHelper.HINT_FETCH;
+import static com.github.beljaeff.sjb.util.CommonUtils.mapAttachmentsByPostId;
+import static com.github.beljaeff.sjb.util.CommonUtils.mapGroupsByUserId;
 
 @Repository
 public class PostRepositoryJpa extends AbstractPageableRepository<Post, PostCondition> implements PostRepository {

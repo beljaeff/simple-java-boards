@@ -11,13 +11,13 @@ jQuery(document).ready(function ($) {
     var NICK_NAME_PATTERN = "^[a-zA-Z0-9_\\.\\-]{3,}$";
 
     $("#sign-up-form #password").on("propertychange change keyup paste input", function () {
-        var password = $(this).val();
+        var password = $(this);
         var popoverText = "Enter password...";
         var popoverClass = "";
 
-        switch (zxcvbn(password)["score"]) {
+        switch (zxcvbn(password.val())["score"]) {
             case 0:
-                if (password.length > 0) {
+                if (password.val().length > 0) {
                     popoverText = "Very Weak";
                     popoverClass = "danger";
                 }
@@ -44,17 +44,17 @@ jQuery(document).ready(function ($) {
                 break;
         }
 
-        updatePopover($(this), popoverClass, popoverText);
+        updatePopover(password, popoverClass, popoverText);
     });
 
     $("#sign-up-form #passwordConfirm").on("propertychange change keyup paste input", function () {
-        var password = $("#password").val();
-        var passwordConfirm = $(this).val();
+        var password = $("#password");
+        var passwordConfirm = $(this);
         var popoverText = "Enter password confirm...";
         var popoverClass = "";
 
-        if (passwordConfirm.length > 0) {
-            if (password  !== passwordConfirm) {
+        if (passwordConfirm.val().length > 0) {
+            if (password.val() !== passwordConfirm.val()) {
                 popoverText = "Password does not match";
                 popoverClass = "danger";
             }
@@ -64,7 +64,7 @@ jQuery(document).ready(function ($) {
             }
         }
 
-        updatePopover($(this), popoverClass, popoverText);
+        updatePopover(passwordConfirm, popoverClass, popoverText);
     });
 
     $("#sign-up-form #nickName").on("focus propertychange change keyup paste input", function () {
@@ -128,7 +128,7 @@ jQuery(document).ready(function ($) {
             state = false;
         }
 
-        var minStrength = parseInt(password.attr("data-password-min-strength"));
+        var minStrength = parseInt(password.attr("data-password-min-strength"), 10);
         if(zxcvbn(password.val())["score"] < minStrength) {
             password.popover("show");
             state = false;

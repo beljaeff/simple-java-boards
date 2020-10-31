@@ -5,7 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-import static com.github.beljaeff.sjb.util.Utils.isImage;
+import static com.github.beljaeff.sjb.util.CommonUtils.isImage;
 
 public class ImageValidator implements ConstraintValidator<Image, MultipartFile> {
 

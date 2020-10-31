@@ -6,18 +6,18 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum EntityType {
-    CATEGORY(Constants.CATEGORY),
-    BOARD(Constants.BOARD),
-    TOPIC(Constants.TOPIC),
-    POST(Constants.POST),
-    PM(Constants.PM),
-    PROFILE(Constants.PROFILE),
-    ATTACHMENT(Constants.ATTACHMENT),
-    GROUP(Constants.GROUP),
-    PERMISSION(Constants.PERMISSION),
-    EMPTY(Constants.EMPTY);
+    CATEGORY(ConstantsHelper.CATEGORY),
+    BOARD(ConstantsHelper.BOARD),
+    TOPIC(ConstantsHelper.TOPIC),
+    POST(ConstantsHelper.POST),
+    PM(ConstantsHelper.PM),
+    PROFILE(ConstantsHelper.PROFILE),
+    ATTACHMENT(ConstantsHelper.ATTACHMENT),
+    GROUP(ConstantsHelper.GROUP),
+    PERMISSION(ConstantsHelper.PERMISSION),
+    EMPTY(ConstantsHelper.EMPTY);
 
-    private String type;
+    private final String type;
 
     public static EntityType getByName(String entityName) {
         for(EntityType entityType : EntityType.values()) {
@@ -28,7 +28,7 @@ public enum EntityType {
         return EMPTY;
     }
 
-    public static class Constants {
+    public static class ConstantsHelper {
         public static final String CATEGORY   = "category";
         public static final String BOARD      = "board";
         public static final String TOPIC      = "topic";

@@ -45,13 +45,13 @@ jQuery(document).ready(function ($) {
     });
 
     $("#change-password-form #passwordConfirm").on("propertychange change keyup paste focus input", function () {
-        var password = $("#password").val();
-        var passwordConfirm = $(this).val();
+        var password = $("#password");
+        var passwordConfirm = $(this);
         var popoverText = "Enter password confirm...";
         var popoverClass = "";
 
-        if (passwordConfirm.length > 0) {
-            if (password  !== passwordConfirm) {
+        if (passwordConfirm.val().length > 0) {
+            if (password.val() !== passwordConfirm.val()) {
                 popoverText = "Password does not match";
                 popoverClass = "danger";
             }
@@ -61,7 +61,7 @@ jQuery(document).ready(function ($) {
             }
         }
 
-        updatePopover($(this), popoverClass, popoverText);
+        updatePopover(passwordConfirm, popoverClass, popoverText);
     });
 
     $("input[data-toggle='change-password-form-popover']").popover({
@@ -85,7 +85,7 @@ jQuery(document).ready(function ($) {
             state = false;
         }
 
-        var minStrength = parseInt(password.attr("data-password-min-strength"));
+        var minStrength = parseInt(password.attr("data-password-min-strength"), 10);
         if(zxcvbn(password.val())["score"] < minStrength) {
             password.popover("show");
             state = false;

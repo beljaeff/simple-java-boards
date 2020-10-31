@@ -36,7 +36,7 @@ import static com.github.beljaeff.sjb.util.DateTimeUtils.DATE_TIME_PATTERN;
 /*
  * Set fields for displaying topics with last post and author
  */
-@NamedEntityGraph(name = EntityGraphs.TOPIC_WITH_LAST_POST_AND_AUTHOR,
+@NamedEntityGraph(name = EntityGraphNamesHelper.TOPIC_WITH_LAST_POST_AND_AUTHOR,
     attributeNodes = {
         @NamedAttributeNode(value = "lastPost", subgraph = "postsWith.author"),
         @NamedAttributeNode(value = "author", subgraph = "usersWith.avatar")
@@ -55,7 +55,7 @@ import static com.github.beljaeff.sjb.util.DateTimeUtils.DATE_TIME_PATTERN;
 /*
  * Set fields for displaying topic with board and author (single page)
  */
-@NamedEntityGraph(name = EntityGraphs.TOPIC_WITH_BOARD_AND_AUTHOR,
+@NamedEntityGraph(name = EntityGraphNamesHelper.TOPIC_WITH_BOARD_AND_AUTHOR,
     attributeNodes = {
         @NamedAttributeNode(value = "board"),
         @NamedAttributeNode(value = "author", subgraph = "usersWith.avatar")

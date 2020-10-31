@@ -1,7 +1,7 @@
 package com.github.beljaeff.sjb.repository;
 
 import com.github.beljaeff.sjb.model.Board;
-import com.github.beljaeff.sjb.model.EntityGraphs;
+import com.github.beljaeff.sjb.model.EntityGraphNamesHelper;
 import com.github.beljaeff.sjb.model.Post;
 import com.github.beljaeff.sjb.model.Topic;
 import com.github.beljaeff.sjb.model.User;
@@ -36,7 +36,7 @@ class PostRepositoryTest extends AbstractPageableRepositoryTest<Post, PostCondit
 
     @Override
     protected String getEntityGraph() {
-        return EntityGraphs.POST_EXCEPT_TOPIC_AND_CHILD_POSTS;
+        return EntityGraphNamesHelper.POST_EXCEPT_TOPIC_AND_CHILD_POSTS;
     }
 
     @Override
@@ -60,7 +60,7 @@ class PostRepositoryTest extends AbstractPageableRepositoryTest<Post, PostCondit
     public void testGetAllByTopicAndSort() {
         PostCondition condition = new PostCondition();
         condition.setTopicId(10);
-        verifyListsWithGraph(condition, EntityGraphs.POST_EXCEPT_TOPIC_AND_CHILD_POSTS,34, 35, 36, 31, 33, 32, 30);
+        verifyListsWithGraph(condition, EntityGraphNamesHelper.POST_EXCEPT_TOPIC_AND_CHILD_POSTS,34, 35, 36, 31, 33, 32, 30);
     }
 
     @Test
