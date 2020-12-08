@@ -39,7 +39,7 @@
         <mockito.version>2.27.0</mockito.version>
 
         <!-- Hibernate -->
-        <hibernate.version>5.4.18.Final</hibernate.version>
+        <hibernate.version>5.4.24.Final</hibernate.version>
         <hibernate-validator.version>6.1.3.Final</hibernate-validator.version>
         <javax-el.version>3.0.1-b11</javax-el.version>
 
