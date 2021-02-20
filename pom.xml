@@ -47,7 +47,7 @@
         <javax-cache.version>1.1.0</javax-cache.version>
         <ehcache.version>3.7.1</ehcache.version>
 
-        <freemarker.version>2.3.28</freemarker.version>
+        <freemarker.version>2.3.30</freemarker.version>
         <servlet-api.version>4.0.1</servlet-api.version>
 
         <javax.mail.version>1.4.7</javax.mail.version>
