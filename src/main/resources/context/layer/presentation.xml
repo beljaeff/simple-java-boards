@@ -37,7 +37,7 @@
     </util:map>
 
     <!-- freemarker config -->
-    <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+    <bean id="freemarkerConfig" class="com.github.beljaeff.sjb.util.SjbFreeMarkerConfigurer">
         <property name="templateLoaderPath" value="/WEB-INF/templates/" />
         <property name="defaultEncoding" value="UTF-8" />
         <property name="freemarkerVariables" ref="freemarkerVariables" />

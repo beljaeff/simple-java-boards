@@ -18,37 +18,37 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <lombok.version>1.18.6</lombok.version>
+        <lombok.version>1.18.20</lombok.version>
 
-        <spring.version>5.3.0</spring.version>
-        <spring-security.version>5.3.5.RELEASE</spring-security.version>
-        <jackson-json.version>2.10.5.1</jackson-json.version>
+        <spring.version>5.3.5</spring.version>
+        <spring-security.version>5.4.5</spring-security.version>
+        <jackson-json.version>2.12.2</jackson-json.version>
 
         <!-- Logging -->
         <logback.version>1.2.3</logback.version>
-        <slf4j.version>1.7.26</slf4j.version>
+        <slf4j.version>1.7.25</slf4j.version>
 
         <!-- DB -->
-        <postgresql.version>42.2.13</postgresql.version>
-        <tomcat-jdbc.version>9.0.19</tomcat-jdbc.version>
-        <javax.persistence.version>2.2</javax.persistence.version>
+        <postgresql.version>42.2.19</postgresql.version>
+        <tomcat-jdbc.version>10.0.5</tomcat-jdbc.version>
+        <javax.persistence-api.version>2.2</javax.persistence-api.version>
 
         <!-- Tests -->
-        <junit.jupiter.version>5.5.0-M1</junit.jupiter.version>
-        <assertj.version>3.12.2</assertj.version>
-        <mockito.version>2.27.0</mockito.version>
+        <junit.jupiter.version>5.7.1</junit.jupiter.version>
+        <assertj.version>3.19.0</assertj.version>
+        <mockito.version>3.9.0</mockito.version>
 
         <!-- Hibernate -->
-        <hibernate.version>5.4.24.Final</hibernate.version>
-        <hibernate-validator.version>6.1.3.Final</hibernate-validator.version>
-        <javax-el.version>3.0.1-b11</javax-el.version>
+        <hibernate.version>5.4.30.Final</hibernate.version>
+        <hibernate-validator.version>6.2.0.Final</hibernate-validator.version>
+        <javax-el.version>3.0.1-b12</javax-el.version>
 
         <!-- Cache -->
-        <javax-cache.version>1.1.0</javax-cache.version>
+        <cache-api.version>1.0.0</cache-api.version>
         <ehcache.version>3.7.1</ehcache.version>
 
-        <freemarker.version>2.3.28</freemarker.version>
-        <servlet-api.version>4.0.1</servlet-api.version>
+        <freemarker.version>2.3.31</freemarker.version>
+        <javax.servlet-api.version>4.0.1</javax.servlet-api.version>
 
         <javax.mail.version>1.4.7</javax.mail.version>
 
@@ -77,6 +77,18 @@
 
         <thumbnailator.version>0.4.8</thumbnailator.version>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-framework-bom</artifactId>
+                <version>${spring.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
@@ -120,12 +132,6 @@
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>${logback.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                </exclusion>
-            </exclusions>
             <scope>runtime</scope>
         </dependency>
 
@@ -200,12 +206,6 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-jcache</artifactId>
             <version>${hibernate.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>javax.cache</groupId>
-                    <artifactId>cache-api</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <!-- Static metamodel generation -->
@@ -213,7 +213,6 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-jpamodelgen</artifactId>
             <version>${hibernate.version}</version>
-            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -224,7 +223,7 @@
         <dependency>
             <groupId>javax.persistence</groupId>
             <artifactId>javax.persistence-api</artifactId>
-            <version>${javax.persistence.version}</version>
+            <version>${javax.persistence-api.version}</version>
         </dependency>
 
         <!-- http://hibernate.org/validator/documentation/getting-started/#unified-expression-language-el -->
@@ -238,18 +237,12 @@
         <dependency>
             <groupId>javax.cache</groupId>
             <artifactId>cache-api</artifactId>
-            <version>${javax-cache.version}</version>
+            <version>${cache-api.version}</version>
         </dependency>
         <dependency>
             <groupId>org.ehcache</groupId>
             <artifactId>ehcache</artifactId>
             <version>${ehcache.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                </exclusion>
-            </exclusions>
             <scope>runtime</scope>
         </dependency>
 
@@ -262,7 +255,7 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>${servlet-api.version}</version>
+            <version>${javax.servlet-api.version}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -391,16 +384,6 @@
             <artifactId>mockito-junit-jupiter</artifactId>
             <version>${mockito.version}</version>
             <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.junit.jupiter</groupId>
-                    <artifactId>junit-jupiter-engine</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.junit.jupiter</groupId>
-                    <artifactId>junit-jupiter-api</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <dependency>
@@ -418,21 +401,8 @@
 
     </dependencies>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-framework-bom</artifactId>
-                <version>${spring.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <build>
         <finalName>sjb</finalName>
-        <defaultGoal>package</defaultGoal>
 
         <testResources>
             <testResource>
@@ -478,12 +448,18 @@
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
-                    <!-- Needed to work both lombok and static metamodel :
-                        @See https://stackoverflow.com/a/31805414
-                    -->
-                    <compilerArguments>
-                        <processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor,lombok.launch.AnnotationProcessorHider$AnnotationProcessor</processor>
-                    </compilerArguments>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                        <path>
+                            <groupId>org.hibernate</groupId>
+                            <artifactId>hibernate-jpamodelgen</artifactId>
+                            <version>${hibernate.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
                 </configuration>
             </plugin>
 
