@@ -21,7 +21,7 @@
         <lombok.version>1.18.20</lombok.version>
 
         <spring.version>5.3.5</spring.version>
-        <spring-security.version>5.5.0</spring-security.version>
+        <spring-security.version>5.5.1</spring-security.version>
         <jackson-json.version>2.12.2</jackson-json.version>
 
         <!-- Logging -->
