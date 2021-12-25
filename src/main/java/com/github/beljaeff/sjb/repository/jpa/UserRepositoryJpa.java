@@ -73,7 +73,7 @@ public class UserRepositoryJpa extends AbstractPageableRepository<User, UserCond
         TypedQuery<Tuple> typedQuery = entityManager.createQuery(criteriaQuery);
 
         if(entityGraphName != null) {
-            EntityGraph graph = entityManager.getEntityGraph(entityGraphName);
+            EntityGraph<?> graph = entityManager.getEntityGraph(entityGraphName);
             typedQuery.setHint(HINT_FETCH, graph);
         }
 
@@ -120,7 +120,7 @@ public class UserRepositoryJpa extends AbstractPageableRepository<User, UserCond
         TypedQuery<User> typedQuery = entityManager.createQuery(criteriaQuery);
 
         if(entityGraphName != null) {
-            EntityGraph graph = entityManager.getEntityGraph(entityGraphName);
+            EntityGraph<?> graph = entityManager.getEntityGraph(entityGraphName);
             typedQuery.setHint(HINT_FETCH, graph);
         }
 

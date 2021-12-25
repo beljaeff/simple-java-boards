@@ -62,7 +62,7 @@ public class GroupRepositoryJpa extends AbstractBaseRepository<Group, GroupCondi
         TypedQuery<Group> typedQuery = entityManager.createQuery(criteriaQuery);
 
         if(entityGraphName != null) {
-            EntityGraph graph = entityManager.getEntityGraph(entityGraphName);
+            EntityGraph<?> graph = entityManager.getEntityGraph(entityGraphName);
             typedQuery.setHint(HINT_FETCH, graph);
         }
 
@@ -85,7 +85,7 @@ public class GroupRepositoryJpa extends AbstractBaseRepository<Group, GroupCondi
         criteriaQuery.where(in);
 
         TypedQuery<Group> typedQuery = entityManager.createQuery(criteriaQuery);
-        EntityGraph graph = entityManager.getEntityGraph(GROUPS_WITH_OWNERS);
+        EntityGraph<?> graph = entityManager.getEntityGraph(GROUPS_WITH_OWNERS);
         typedQuery.setHint(HINT_FETCH, graph);
 
         return typedQuery.getResultList();

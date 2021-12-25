@@ -21,7 +21,7 @@
     <div class="post-top-block d-sm-flex flex-sm-row">
         <div class="card-header p-3">
             <div class="d-flex flex-row flex-sm-column">
-                <h5 class="d-none d-md-block align-self-center"><a <@printLinkToProfile post.author />>${post.author.nickName}</></h5>
+                <h5 class="d-none d-md-block align-self-center"><a <@printLinkToProfile post.author />>${post.author.nickName}</a></h5>
                 <#if (post.author.avatar)??>
                     <a class="align-self-center" <@printLinkToProfile post.author />>
                         <img class="rounded" src="${post.author.avatar.imageUrl}" alt="${post.author.nickName}" title="${post.author.nickName}" />

@@ -61,7 +61,7 @@ public class BoardRepositoryJpa extends AbstractBaseRepository<Board, BoardCondi
         TypedQuery<Board> typedQuery = entityManager.createQuery(criteriaQuery);
 
         if(entityGraphName != null) {
-            EntityGraph graph = entityManager.getEntityGraph(entityGraphName);
+            EntityGraph<?> graph = entityManager.getEntityGraph(entityGraphName);
             typedQuery.setHint(HINT_FETCH, graph);
         }
 

@@ -100,7 +100,7 @@ public class TopicRepositoryJpa extends AbstractPageableRepository<Topic, TopicC
         TypedQuery<Tuple> typedQuery = entityManager.createQuery(criteriaQuery);
 
         if(entityGraphName != null) {
-            EntityGraph graph = entityManager.getEntityGraph(entityGraphName);
+            EntityGraph<?> graph = entityManager.getEntityGraph(entityGraphName);
             typedQuery.setHint(EntityGraphNamesHelper.HINT_FETCH, graph);
         }
 

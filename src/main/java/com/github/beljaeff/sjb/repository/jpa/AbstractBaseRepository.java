@@ -30,7 +30,7 @@ abstract public class AbstractBaseRepository<T extends IdentifiedActiveEntity, S
     @Override
     public T get(int id, String entityGraphName) {
         if(entityGraphName != null) {
-            EntityGraph entityGraph = entityManager.getEntityGraph(entityGraphName);
+            EntityGraph<?> entityGraph = entityManager.getEntityGraph(entityGraphName);
             Map<String, Object> hints = new HashMap<>();
             hints.put(HINT_FETCH, entityGraph);
             return entityManager.find(entityClass, id, hints);

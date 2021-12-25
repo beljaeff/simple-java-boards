@@ -83,7 +83,7 @@ public class PostRepositoryJpa extends AbstractPageableRepository<Post, PostCond
         TypedQuery<Tuple> typedQuery = entityManager.createQuery(criteriaQuery);
 
         if(entityGraphName != null) {
-            EntityGraph graph = entityManager.getEntityGraph(entityGraphName);
+            EntityGraph<?> graph = entityManager.getEntityGraph(entityGraphName);
             typedQuery.setHint(HINT_FETCH, graph);
         }
 

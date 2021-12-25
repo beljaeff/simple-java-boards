@@ -57,7 +57,7 @@ public class CategoryRepositoryJpa extends AbstractBaseRepository<Category, Cate
         TypedQuery<Category> typedQuery = entityManager.createQuery(criteriaQuery);
 
         if(entityGraphName != null) {
-            EntityGraph graph = entityManager.getEntityGraph(entityGraphName);
+            EntityGraph<?> graph = entityManager.getEntityGraph(entityGraphName);
             typedQuery.setHint(HINT_FETCH, graph);
         }
 

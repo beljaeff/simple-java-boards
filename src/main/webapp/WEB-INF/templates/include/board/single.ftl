@@ -17,7 +17,7 @@
 <div class="card boards-block mt-4${inActiveClass}">
     <#if (page.entity.boards)?has_content>
         <div class="card-header alert-primary d-flex justify-content-between align-items-center">
-            <div><h5 class="mb-1">Boards</div>
+            <div><h5 class="mb-1">Boards</h5></div>
             <#include "edit-dropdown.ftl" />
         </div>
         <div class="card-body boards-block p-0">
@@ -38,7 +38,7 @@
         </#if>
     <#else>
         <div class="card-header alert-primary d-flex justify-content-between align-items-center">
-            <div><h5 class="mb-1">Topics</div>
+            <div><h5 class="mb-1">Topics</h5></div>
             <#include "edit-dropdown.ftl" />
         </div>
     </#if>
