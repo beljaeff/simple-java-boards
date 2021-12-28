@@ -34,7 +34,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@ContextConfiguration({"classpath:context/layer/persistence.xml"})
+@ContextConfiguration("classpath*:context/layer/persistence.xml")
 @ExtendWith(SpringExtension.class)
 @ExtendWith(MockitoExtension.class)
 @Sql(
@@ -180,7 +180,7 @@ public abstract class AbstractRepositoryTest<T extends IdentifiedActiveEntity, S
         assertFalse(mockRepository.delete(id));
     }
 
-    //TODO: refactoiring
+    //TODO: refactor it
 /*
     @SuppressWarnings("unchecked")
     @Test

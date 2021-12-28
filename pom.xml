@@ -20,13 +20,13 @@
 
         <lombok.version>1.18.20</lombok.version>
 
-        <spring.version>5.3.5</spring.version>
+        <spring.version>5.3.8</spring.version>
         <spring-security.version>5.5.1</spring-security.version>
         <jackson-json.version>2.12.2</jackson-json.version>
 
         <!-- Logging -->
         <logback.version>1.2.7</logback.version>
-        <slf4j.version>1.7.25</slf4j.version>
+        <slf4j.version>1.7.32</slf4j.version>
 
         <!-- DB -->
         <postgresql.version>42.2.19</postgresql.version>
@@ -45,7 +45,7 @@
 
         <!-- Cache -->
         <cache-api.version>1.0.0</cache-api.version>
-        <ehcache.version>3.7.1</ehcache.version>
+        <ehcache.version>3.9.9</ehcache.version>
 
         <freemarker.version>2.3.31</freemarker.version>
         <javax.servlet-api.version>4.0.1</javax.servlet-api.version>
@@ -139,14 +139,6 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-aop</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-aspects</artifactId>
         </dependency>
 
         <!-- Spring Security -->
@@ -244,6 +236,12 @@
             <artifactId>ehcache</artifactId>
             <version>${ehcache.version}</version>
             <scope>runtime</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- Web -->
@@ -378,6 +376,12 @@
             <artifactId>mockito-core</artifactId>
             <version>${mockito.version}</version>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>net.bytebuddy</groupId>
+                    <artifactId>byte-buddy</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
