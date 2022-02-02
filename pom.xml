@@ -29,7 +29,7 @@
         <slf4j.version>1.7.32</slf4j.version>
 
         <!-- DB -->
-        <postgresql.version>42.2.19</postgresql.version>
+        <postgresql.version>42.2.25</postgresql.version>
         <tomcat-jdbc.version>10.0.5</tomcat-jdbc.version>
         <javax.persistence-api.version>2.2</javax.persistence-api.version>
 
