@@ -22,14 +22,14 @@
 
         <spring.version>5.3.8</spring.version>
         <spring-security.version>5.5.1</spring-security.version>
-        <jackson-json.version>2.12.6</jackson-json.version>
+        <jackson-json.version>2.13.0</jackson-json.version>
 
         <!-- Logging -->
         <logback.version>1.2.7</logback.version>
         <slf4j.version>1.7.32</slf4j.version>
 
         <!-- DB -->
-        <postgresql.version>42.2.19</postgresql.version>
+        <postgresql.version>42.3.3</postgresql.version>
         <tomcat-jdbc.version>10.0.5</tomcat-jdbc.version>
         <javax.persistence-api.version>2.2</javax.persistence-api.version>
 
