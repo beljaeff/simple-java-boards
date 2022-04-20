@@ -56,7 +56,7 @@
         <webjars-bootstrap.version>4.3.1</webjars-bootstrap.version>
         <webjars-font-awesome.version>5.8.1</webjars-font-awesome.version>
         <webjars-jquery.version>3.5.0</webjars-jquery.version>
-        <webjars-moment.version>2.24.0</webjars-moment.version>
+        <webjars-moment.version>2.29.3</webjars-moment.version>
         <webjars-tempusdominus-bootstrap-4.version>5.1.2</webjars-tempusdominus-bootstrap-4.version>
 
         <!-- Maven plugins -->
