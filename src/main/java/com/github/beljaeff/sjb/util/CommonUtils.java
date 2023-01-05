@@ -23,8 +23,8 @@ import java.util.TreeSet;
 public class CommonUtils {
 
     private static final String JPG = "image/jpeg";
-    private static final String PNG = "image/gif";
-    private static final String GIF = "image/png";
+    private static final String GIF = "image/gif";
+    private static final String PNG = "image/png";
 
     public static void addError(BindingResult bindingResult, String field, String errorText) {
         if(field != null) {
